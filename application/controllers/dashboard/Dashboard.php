@@ -23,8 +23,8 @@ class Dashboard extends CI_Controller {
 
 	function plan_action()
 	{
-		if($_POST["action"]  == "Add")
-		{
+		//if($_POST["action"]  == "Add")
+		//{
 			$insert_data = array(
 				'plan_name' => $this->input->post('plan_name'),
 				'image'     => $this->upload_image(),
@@ -36,7 +36,7 @@ class Dashboard extends CI_Controller {
 			$this->load->model('main_model');
 			$this->main_model->insert_plan($insert_data);
 			echo "Data inserted";
-		}
+		//}
 	}
 	function upload_image()
 	{
@@ -44,7 +44,7 @@ class Dashboard extends CI_Controller {
 		{
 			$extension = explode('.', $_FILES['image']['name']);
 			$new_name = rand() . '.' . $extension[1];
-			$destination = './upload/' . $new_name;
+			$destination = './assets/upload/' . $new_name;
 			move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 			return $new_name;
 		}

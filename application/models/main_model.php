@@ -20,6 +20,6 @@ class Main_model extends CI_Model {
 	}
 	function insert_plan($data)
 	{
-		$this->db->insert('users', $data);
+		$this->db->insert('plans', $data);
 	}
 }
