@@ -49,4 +49,29 @@ class Dashboard extends CI_Controller {
 			return $new_name;
 		}
 	}
+	function fetch_plans(){
+		$this->load->model("plans");
+		$fetch_data = $this->plans->make_datatables();
+		$data = array();
+		foreach ($fetch_data as $row) {
+			$sub_array	 = array();
+			$sub_array[] = '<img src="' .base_url().'assets/upload/'.$row->image.'" class="img-thumbnail" width="75"/> ';
+			$sub_array[] = $row->plan_name;
+			$sub_array[] = $row->start_date;
+			$sub_array[] = $row->end_date;
+			$sub_array[] = $row->plan_cost;
+			$sub_array[] = $row->description;
+
+			$sub_array[] = '<button type="button" name="update" id="'.$row->id.'" class="btn btn-warning btn-xs">Update</button>';
+			$sub_array[] = '<button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs">Delete</button>';
+			$data[] = $sub_array;
+		}
+		$output = array(
+			"draw"				=>	intval($_POST["draw"]),
+			"recordsTotal"		=>	$this->plans->get_all_data(),
+			"recordsFiltered"	=>	$this->plans->get_filtered_data(),
+			"data"				=>	$data
+		);
+		echo json_encode($output);	
+	}
 }

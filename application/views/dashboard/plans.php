@@ -34,20 +34,17 @@
                                     </button>
                                     <h4 class="header-title mb-4">Manage Plans</h4>
 
-                                    <table class="table table-hover m-0 table-centered dt-responsive nowrap w-100" id="tickets-table">
+                                    <table class="table table-bordered table-stripped" id="plan_data">
                                         <thead>
                                         <tr>
-                                            <th>
-                                                ID
-                                            </th>
-                                            <th>Name</th>
                                             <th>Image</th>
+                                            <th>Name</th>
                                             <th>Start date</th>
                                             <th>End date</th>
                                             <th>Cost</th>
-                                            <th>Description</th>
-                                            <th>Status</th>
-                                            <th class="hidden-sm">Action</th>
+                                            <th width="15%">Description</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
                                         </tr>
                                         </thead>
 
@@ -99,6 +96,21 @@
 
 <script type="text/javascript" language="javascript">
     $(document).ready(function(){
+        var dataTable = $('#plan_data').DataTable({
+            "processing":true,
+            "serverSide":true,
+            "order":[],
+            "ajax":{
+                url:baseDir + 'dashboard/dashboard/fetch_plans',
+                type:"POST"
+            },
+            "columnDefs":[
+                {
+                    "targets":[0, 3, 4],
+                    "orderable":false
+                }
+            ]
+        });
         $(document).on('submit', '#plan_form', function(event){
             event.preventDefault();
             var planName = $('#plan_name').val();
@@ -128,6 +140,7 @@
                         alert(data);
                         $('#plan_form')[0].reset();
                         $('#planModal').modal('hide');
+                        dataTable.ajax.reload();
                     }
                 });
             }

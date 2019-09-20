@@ -34,6 +34,11 @@
         <script src="<?php echo base_url(); ?>assets1/libs/flot-charts/jquery.flot.selection.js"></script>
         <script src="<?php echo base_url(); ?>assets1/libs/flot-charts/jquery.flot.crosshair.js"></script>
 
+        <script src="<?php echo base_url(); ?>assets1/libs/datatables/jquery.dataTables.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets1/libs/datatables/dataTables.bootstrap4.js"></script>
+        <script src="<?php echo base_url(); ?>assets1/libs/datatables/dataTables.responsive.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets1/libs/datatables/responsive.bootstrap4.min.js"></script>
+
         <!-- Dashboar 1 init js-->
         <script src="<?php echo base_url(); ?>assets1/js/pages/dashboard-1.init.js"></script>
 
