@@ -22,4 +22,9 @@ class Main_model extends CI_Model {
 	{
 		$this->db->insert('plans', $data);
 	}
+	function update_plan($plan_id, $data)
+	{
+		$this->db->where("id", $plan_id);
+		$this->db->update("plans", $data);
+	}
 }

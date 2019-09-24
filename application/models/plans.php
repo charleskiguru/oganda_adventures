@@ -42,4 +42,16 @@ class Plans extends CI_Model {
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
+    function fetch_single_plan($plan_id)
+    {
+        $this->db->where("id", $plan_id);
+        $query = $this->db->get('plans');
+        return $query->result();
+    }
+    public function get_plan()
+    {
+        $result = $this->db->query("select * from plans where status=1")->result_array();
+        return $result;
+
+    }
 }

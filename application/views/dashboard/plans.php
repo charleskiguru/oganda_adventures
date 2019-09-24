@@ -65,7 +65,7 @@
 
 <div id="planModal" class="modal fade">
     <div class="modal-dialog">
-        <form method="post" id="plan_form">
+        <form method="post" action="getData" id="plan_form">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Add plan</h4>
@@ -75,7 +75,8 @@
                     <label>Plan name</label>
                     <input type="text" name="plan_name" id="plan_name" class="form-control"> <br/>
                     <label>Image</label>
-                    <input type="file" name="image" id="image"> <br/>
+                    <input type="file" name="image" id="image">
+                    <span id="plan_uploaded_image"></span> <br/>
                     <label>Start date</label>
                     <input type="date" name="start_date" id="start_date" class="form-control"> <br/>
                     <label>End date</label>
@@ -86,7 +87,8 @@
                     <input type="textarea" name="description" id="description" class="form-control"> <br/>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" name="action" value="Add" class="btn btn-sm btn-success">
+                    <input type="hidden" name="plan_id" id="plan_id">
+                    <input type="submit" name="action" id="action" value="Add" class="btn btn-sm btn-success">
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
                 </div>
             </div>
@@ -127,6 +129,7 @@
                 $('#image').val('');
                 return false;
             }
+            
             if(planName != '' && startDate != '' && endDate != '' && planCost != '' && planDescription != '')
             {
                 $.ajax({
@@ -148,6 +151,29 @@
             {
                 alert('All fields are required');
             }
+        });
+
+        $(document).on('click', '.update', function(){
+            var plan_id = $(this).attr("id");
+            $.ajax({
+                url:baseDir + 'dashboard/dashboard/fetch_single_plan',
+                method:"POST",
+                data:{plan_id, plan_id},
+                dataType:"json",
+                success:function(data){
+                    $('#planModal').modal('show');
+                    $('#plan_name').val(data.plan_name);
+                    $('#plan_uploaded_image').html(data.image);
+                    $('#start_date').val(data.start_date);
+                    $('#end_date').val(data.end_date);
+                    $('#plan_cost').val(data.plan_cost);
+                    $('#description').val(data.description);
+                    $('.modal-title').text("Edit plan");
+                    $('#plan_id').val(plan_id);
+                    $('#action').val("Edit");
+
+                }
+            })
         });
     });
 </script>

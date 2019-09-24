@@ -21,6 +21,8 @@
         <link href="<?php echo base_url(); ?>assets1/css/app.min.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<?php echo base_url(); ?>assets1/js/jquery.js"></script>
         <script type="text/javascript" >
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" >
             var baseDir = '<?php echo base_url(); ?>';
         </script>
         
