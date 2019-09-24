@@ -52,6 +52,27 @@ class Plans extends CI_Model {
     {
         $result = $this->db->query("select * from plans where status=1")->result_array();
         return $result;
+    }
+    public function booking()
+    {
+        $field = array(
+            'first_name'    =>  $this->input->post('first_name'),
+            'last_name'     =>  $this->input->post('last_name'),
+            'email'         =>  $this->input->post('email'),
+            'phoneno'       =>  $this->input->post('phoneno'),
+            'no_adults'     =>  $this->input->post('no_adults'),
+            'no_kids'       =>  $this->input->post('no_kids'),
+            'nationality'   =>  $this->input->post('nationality'),
+            'created_at'    =>  date('Y-m-d H:i:s')
+        );
+        $this->db->insert('booked_tours', $field);
 
+        if($this->db->affected_rows() > 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

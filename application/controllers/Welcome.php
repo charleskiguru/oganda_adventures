@@ -14,4 +14,15 @@ class Welcome extends CI_Controller {
 
 		$this->load->view('my_page', $data);
 	}
+	public function booking()
+	{
+		$this->load->model('plans');
+		$result = $this->plans->booking();
+		$msg['success'] = false;
+		if($result)
+		{
+			$msg['success'] = true;
+		}
+		echo json_encode($msg);
+	}
 }

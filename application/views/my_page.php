@@ -503,7 +503,7 @@ http://www.tooplate.com/view/2078-adventure
 							Price : <b>KES <?=$val['plan_cost']?></b> per person.
 							</div>
 							<div class="plan-button">
-								<button type="button" data-backdrop="false" data-toggle="modal" data-target="#bookForm" class="btn btn-primary btn-block">Book now</button>
+								<button type="button" data-backdrop="false" data-toggle="modal" data-target="#bookModal" class="btn btn-primary btn-block">Book now</button>
 							</div>
 						</div>
 					</div>
@@ -512,7 +512,7 @@ http://www.tooplate.com/view/2078-adventure
 		</div>
 	</div>
 </section>
-<div id="bookForm" class="modal" tabindex="-1" role="dialog">
+<div id="bookModal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -522,15 +522,16 @@ http://www.tooplate.com/view/2078-adventure
 		<h4 class="modal-title">Book Tour</h4>
       </div>
       <div class="modal-body">
-        <form id="bookForm" action="" method="post" class="form-horizontal">
+		<div class="alert alert-success" style="display: none;"></div>
+        <form id="bookForm" action="<?php echo base_url(); ?>welcome/booking" method="post" class="form-horizontal">
 			<div class="form-group">
 				<label for="firstname" class="label-control col-md-4">First Name <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input type="text" name="first_name" class="form-control">
 				</div>
 			</div>
-			<div  for="lastname" class="form-group">
-				<label class="label-control col-md-4">Last Name <span style="color: red !important; display: inline; float: none;">*</span> </label>
+			<div class="form-group">
+				<label for="lastname" class="label-control col-md-4">Last Name <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input type="text" name="last_name" class="form-control">
 				</div>
@@ -915,12 +916,89 @@ http://www.tooplate.com/view/2078-adventure
 </html>
 <script>
 	$(function(){
-		$('#bookNow').click(function(){
-			$('#bookForm').attr('action', '<?php echo base_url(); ?>plans');
-		});
-
 		$('#btnBook').click(function(){
-			
+			var url = $('#bookForm').attr('action');
+			var data = $('#bookForm').serialize();
+			var firstName = $('input[name=first_name]');
+			var lastName = $('input[name=last_name]');
+			var Email = $('input[name=email]');
+			var phoneNumber = $('input[name=phoneno]');
+			var noAdults = $('input[name=no_adults]');
+			var noKids = $('input[name=no_kids]');
+			var Nation = $('select[name=nationality]');
+
+			var result = '';
+			if(firstName.val()==''){
+				firstName.parent().parent().addClass('has-error');
+			}
+			else{
+				firstName.parent().parent().removeClass('has-error');
+				result +='1';
+			}
+			if(lastName.val()==''){
+				lastName.parent().parent().addClass('has-error');
+			}
+			else{
+				lastName.parent().parent().removeClass('has-error');
+				result += '2';
+			}
+			if(Email.val()==''){
+				Email.parent().parent().addClass('has-error');
+			}
+			else{
+				Email.parent().parent().removeClass('has-error');
+				result += '3';
+			}
+			if(phoneNumber.val()==''){
+				phoneNumber.parent().parent().addClass('has-error');
+			}
+			else{
+				phoneNumber.parent().parent().removeClass('has-error');
+				result += '4';
+			}
+			if(noAdults.val()==''){
+				noAdults.parent().parent().addClass('has-error');
+			}
+			else{
+				noAdults.parent().parent().removeClass('has-error');
+				result += '5';
+			}
+			if(noKids.val()==''){
+				noKids.parent().parent().addClass('has-error');
+			}
+			else{
+				noKids.parent().parent().removeClass('has-error');
+				result += '6';
+			}
+			if(Nation.val()==''){
+				Nation.parent().parent().addClass('has-error');
+			}
+			else{
+				Nation.parent().parent().removeClass('has-error');
+				result += '7';
+			}
+			if(result=='1234567'){
+				$.ajax({
+					type:'ajax',
+					method:'post',
+					url:url,
+					data:data,
+					async:false,
+					dataType:'json',
+					success: function(response){
+						if(response.success){
+							$('#bookForm')[0].reset();
+							$('.alert-success').html('Booking Successful!. Please confirm the payments, Thankyou.').fadeIn().delay(4000).fadeOut('slow');
+						}
+						else{
+							alert('error');
+						}
+					},
+					error: function(){
+						alert('Unable to book tour');
+					}
+				});
+			}
 		});
 	});
 </script>
