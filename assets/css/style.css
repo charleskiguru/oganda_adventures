@@ -639,6 +639,12 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 #plan .plan-button .btn:hover {
 }
 
+/* contact section styles
+/* ========================================== */
+.modal label{
+  font-size: 14px;
+  font-weight: inherit;
+}
 
 /* contact section styles
 /* ========================================== */

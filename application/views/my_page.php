@@ -503,7 +503,8 @@ http://www.tooplate.com/view/2078-adventure
 							Price : <b>KES <?=$val['plan_cost']?></b> per person.
 							</div>
 							<div class="plan-button">
-								<button type="button" data-backdrop="false" data-toggle="modal" data-target="#bookModal" class="btn btn-primary btn-block">Book now</button>
+								<div class="plan_id"></div>
+								<button type="button" cost="<?=$val['plan_cost']?>" value="<?=$val['plan_name']?>" data-backdrop="false" class="btn btn-primary btn-block book">Book now</button>
 							</div>
 						</div>
 					</div>
@@ -512,7 +513,7 @@ http://www.tooplate.com/view/2078-adventure
 		</div>
 	</div>
 </section>
-<div id="bookModal" class="modal" tabindex="-1" role="dialog">
+<div id="bookModal" data-backdrop="false" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -523,7 +524,9 @@ http://www.tooplate.com/view/2078-adventure
       </div>
       <div class="modal-body">
 		<div class="alert alert-success" style="display: none;"></div>
-        <form id="bookForm" action="<?php echo base_url(); ?>welcome/booking" method="post" class="form-horizontal">
+        <form id="bookForm" action="" method="post" value="" class="form-horizontal">
+			<input id="plan_nam" type="hidden" name="plan_name" value="">
+			<input id="plan_cos" type="hidden" name="plan_cost" value="">
 			<div class="form-group">
 				<label for="firstname" class="label-control col-md-4">First Name <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
@@ -539,25 +542,25 @@ http://www.tooplate.com/view/2078-adventure
 			<div class="form-group">
 				<label for="address" class="label-control col-md-4">Email Address <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
-					<input type="text" name="email" class="form-control">
+					<input type="email" name="email" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="phone" class="label-control col-md-4">Phone Number <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
-					<input type="text" name="phoneno" class="form-control">
+					<input type="number" name="phoneno" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="adults" class="label-control col-md-4">No of adults <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
-					<input type="number" name="no_adults" class="form-control">
+					<input id="no_adult" type="number" name="no_adults" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="kids" class="label-control col-md-4">No of kids <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
-					<input type="text" name="no_kids" class="form-control">
+					<input id="no_kid" type="number" name="no_kids" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
@@ -811,6 +814,7 @@ http://www.tooplate.com/view/2078-adventure
 				</select>
 				</div>     
 			</div>
+			<input type="hidden" id="cost" readonly="true" name="total_cost" class="form-control">
 		</form>
       </div>
       <div class="modal-footer">
@@ -916,15 +920,35 @@ http://www.tooplate.com/view/2078-adventure
 </html>
 <script>
 	$(function(){
+		$('.book').click(function(){
+			var name = $(this).attr("value");
+			var cost = $(this).attr("cost");
+			$('#bookModal').modal('show');
+			$('#bookModal').find('.modal-title').text(name);
+			$('#bookModal').find('#plan_nam').val(name);
+			$('#bookModal').find('#plan_cos').val(cost);
+			$('#bookForm').attr('action','<?php echo base_url(); ?>welcome/booking');
+		});
 		$('#btnBook').click(function(){
+			var adultCost = $('#plan_cos').val();
+			var kidCost = (adultCost)/2;
+			var noAd = $('#no_adult').val();
+			var noKi = $('#no_kid').val();
+			var total_adults= (noAd * adultCost);
+			var total_kids= (noKi * kidCost);
+			var total = (total_adults + total_kids);
+			$('#bookModal').find('#cost').val(total);
+			
 			var url = $('#bookForm').attr('action');
 			var data = $('#bookForm').serialize();
+			var planName = $('input[name=plan_name]');
 			var firstName = $('input[name=first_name]');
 			var lastName = $('input[name=last_name]');
 			var Email = $('input[name=email]');
 			var phoneNumber = $('input[name=phoneno]');
 			var noAdults = $('input[name=no_adults]');
 			var noKids = $('input[name=no_kids]');
+			var TotalCost = $('input[name=total_cost]');
 			var Nation = $('select[name=nationality]');
 
 			var result = '';
