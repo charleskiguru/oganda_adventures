@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-box">
-                                    <button type="button" data-toggle="modal" data-target="#planModal" class="btn btn-sm btn-blue waves-effect waves-light float-right">
+                                    <button id="addButton" type="button" data-toggle="modal" data-target="#planModal" class="btn btn-sm btn-blue waves-effect waves-light float-right">
                                         <i class="mdi mdi-plus-circle"></i> Add Plan
                                     </button>
                                     <h4 class="header-title mb-4">Manage Plans</h4>
@@ -151,6 +151,15 @@
             {
                 alert('All fields are required');
             }
+        });
+        $(document).on('click', '#addButton', function(){
+            $('#plan_form' ).each(function(){
+                this.reset();
+            });
+            $('#plan_uploaded_image').html('');                    
+            $('.modal-title').text("Add Plan");
+            $('#action').val("Add");   
+            $('#plan_id').val('');    
         });
 
         $(document).on('click', '.update', function(){

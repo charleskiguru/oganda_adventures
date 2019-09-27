@@ -845,21 +845,25 @@ http://www.tooplate.com/view/2078-adventure
 			<!-- Contact form section
 			================================================== -->
 			<div class="col-md-offset-1 col-md-10 col-sm-12">
-				<form action="#" method="post" class="wow fadeInUp" data-wow-delay="0.6s">
+				<form action="<?php echo base_url(); ?>welcome/contact_validation" method="post" class="wow fadeInUp" data-wow-delay="0.6s">
 					<div class="col-md-4 col-sm-6">
 						<input type="text" class="form-control" placeholder="Name" name="name">
+						<span class="text-danger"><?php echo form_error('name'); ?></span>
 					</div>
 					<div class="col-md-4 col-sm-6">
 						<input type="email" class="form-control" placeholder="Email" name="email">
+						<span class="text-danger"><?php echo form_error('email'); ?></span>
 					</div>
 					<div class="col-md-4 col-sm-12">
 						<input type="text" class="form-control" placeholder="Subject" name="subject">
+						<span class="text-danger"><?php echo form_error('subject'); ?></span>
 					</div>
 					<div class="col-md-12 col-sm-12">
 						<textarea class="form-control" placeholder="Message" rows="7" name="message"></textarea>
+						<span class="text-danger"><?php echo form_error('message'); ?></span>
 					</div>
 					<div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8">
-						<input type="submit" class="form-control" value="SHOOT MESSAGE">
+						<input type="submit" name="submit" class="form-control" value="SHOOT MESSAGE">
 					</div>
 				</form>
 			</div>

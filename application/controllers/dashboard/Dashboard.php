@@ -47,8 +47,7 @@ class Dashboard extends CI_Controller {
 	}
 	function plan_action()
 	{
-		//if($_POST["action"]  == "Edit")
-		//{
+		if($this->input->post("plan_id")  != ""){
 			$image = '';
 			if($_FILES["image"]["name"] != '')
 			{
@@ -69,21 +68,21 @@ class Dashboard extends CI_Controller {
 			$this->load->model('main_model');
 			$this->main_model->update_plan($this->input->post("plan_id"), $updated_data);
 			echo 'Data Updated';
-		//}
-		//else
-		//{
-		//	$insert_data = array(
-		//		'plan_name' => $this->input->post('plan_name'),
-		//		'image'     => $this->upload_image(),
-		//		'start_date' => $this->input->post('start_date'),
-		//		'end_date' => $this->input->post('end_date'),
-		//		'plan_cost' => $this->input->post('plan_cost'),
-		//		'description' => $this->input->post('description')
-		//	);
-		//	$this->load->model('main_model');
-		//	$this->main_model->insert_plan($insert_data);
-		//	echo "Data inserted";
-		//}
+		}
+		else
+		{
+			$insert_data = array(
+				'plan_name' => $this->input->post('plan_name'),
+				'image'     => $this->upload_image(),
+				'start_date' => $this->input->post('start_date'),
+				'end_date' => $this->input->post('end_date'),
+				'plan_cost' => $this->input->post('plan_cost'),
+				'description' => $this->input->post('description')
+			);
+			$this->load->model('main_model');
+			$this->main_model->insert_plan($insert_data);
+			echo "Data inserted";
+		}
 	}
 	function upload_image()
 	{

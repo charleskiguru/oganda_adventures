@@ -71,33 +71,28 @@ class Plans extends CI_Model {
 
         if($this->db->affected_rows() > 0)
         {
-            $mobile = $this->input->post('phoneno');
-            $message= $this->input->post('first_name');
-            $encodedMessage = urlencode($message);
+            $api_username = 'oganda_adventures';
+            $api_key = 'bdfdf3aaf108397c75fe6f4729a7fcc55ff87f4fb08d159970bc2c33efe2afc3';
+            $FirstName = $this->input->post('first_name');
+            $PlanName = $this->input->post('plan_name');
+            $TotalCost = $this->input->post('total_cost');
+            require_once(APPPATH.'libraries/AfricasTalkingGateway.php');
+            $gateway = new AfricasTalkingGateway($api_username, $api_key);
+            $sms_message = 'Dear customer, you have successfully booked our plans. Please pay to complete booking. Thank you and welcome back to Oganda Adventures.';
+            $recipient = $this->input->post('phoneno');
+            try{
+                $results  = $gateway->sendMessage($recipient, $sms_message);
+                // foreach($results as $result) {
+                //     if ($result->messageId == 'None'){
+                //         $msg_err = $msg_err . $result->status . '</br>';
+                //     }else{
+                //     }
+                // }
+            }catch ( AfricasTalkingGatewayException $e ){
+                //$msg_err = $msg_err . $e->getMessage() . '</br>';
+                return false;
+            }
 
-            $userName = "charleskiguru";
-            $authkey = "65ec0c786dab7c184e35bfc0dc32b6636fa020a0d0bc5cd9457030e3eaba31ff";
-            $senderID = "AFRICASTKNG";
-            $postData = array(
-                'userName' => $userName,
-                'authkey' => $authkey,
-                'senderID' => $senderID,
-                'mobile' => $mobile,
-                'message' => $encodedMessage
-            );
-            $url = "http://swiftext.co.ke/API/?action=compose";
-            $ch = curl_init();
-            curl_setopt_array($ch, array(
-                CURLOPT_URL => $url,
-                CURLOPT_RETURNTRANSFER => TRUE,
-                CURLOPT_POST => TRUE,
-                CURLOPT_POSTFIELDS => $postData
-            ));
-            
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-            $output = curl_exec($ch);
-            $curl_close($ch);
 
             return true;
         }
