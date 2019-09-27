@@ -20,6 +20,10 @@ class Dashboard extends CI_Controller {
 	{
 		$this->load->view('dashboard/plans');
 	}
+	public function plans_booked()
+	{
+		$this->load->view("dashboard/booked_plans");
+	}
 	function fetch_plans(){
 		$this->load->model("plans");
 		$fetch_data = $this->plans->make_datatables();
@@ -117,6 +121,34 @@ class Dashboard extends CI_Controller {
 			$output['plan_cost'] 	= $row->plan_cost;
 			$output['description'] 	= $row->description;
 		}
+		echo json_encode($output);
+	}
+	function fetch_booked_plans(){
+		$this->load->model('booked');
+		$fetch_data = $this->booked->make_datatables();
+		$data = array();
+		foreach ($fetch_data as $row) {
+			$sub_array	 = array();
+			$sub_array[] = $row->plan_booked;
+			$sub_array[] = $row->booking_id;
+			$sub_array[] = $row->booking_status;
+			$sub_array[] = $row->first_name;
+			$sub_array[] = $row->phoneno;
+			$sub_array[] = $row->no_adults;
+			$sub_array[] = $row->no_kids;
+			$sub_array[] = $row->total_cost;
+			$sub_array[] = $row->created_at;
+
+			$sub_array[] = '<button type="button" name="update" id="'.$row->id.'" class="btn btn-warning btn-xs update">Update</button>';
+			$sub_array[] = '<button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button>';
+			$data[] = $sub_array;
+		}
+		$output = array(
+			"draw"				=>	intval($_POST["draw"]),
+			"recordsTotal"		=>	$this->booked->get_all_data(),
+			"recordsFiltered"	=>	$this->booked->get_filtered_data(),
+			"data"				=>	$data
+		);
 		echo json_encode($output);
 	}
 }

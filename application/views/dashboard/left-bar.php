@@ -39,7 +39,7 @@
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="apps-calendar.php">Calendar</a>
+                        <a href="<?php echo base_url(); ?>dashboard/dashboard/plans_booked">Booked Plans</a>
                     </li>
                     <li>
                         <a href="apps-contacts.html">Contacts</a>

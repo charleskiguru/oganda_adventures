@@ -55,8 +55,11 @@ class Plans extends CI_Model {
     }
     public function booking()
     {
+        $this->load->helper('string');
+        $bookingID = random_string('alnum', 7);
         $field = array(
             'plan_booked'   =>  $this->input->post('plan_name'),
+            'booking_id'    => $bookingID,
             'first_name'    =>  $this->input->post('first_name'),
             'last_name'     =>  $this->input->post('last_name'),
             'email'         =>  $this->input->post('email'),
@@ -72,7 +75,7 @@ class Plans extends CI_Model {
         if($this->db->affected_rows() > 0)
         {
             $api_username = 'oganda_adventures';
-            $api_key = 'bdfdf3aaf108397c75fe6f4729a7fcc55ff87f4fb08d159970bc2c33efe2afc3';
+            $api_key = 'c7bc975e7bc589fa87530792e7530e41f77344fc92d57225f1068f7072e90331';
             $FirstName = $this->input->post('first_name');
             $PlanName = $this->input->post('plan_name');
             $TotalCost = $this->input->post('total_cost');
