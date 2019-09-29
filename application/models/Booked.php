@@ -43,4 +43,10 @@ class Booked extends CI_Model {
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
+    function fetch_single_booked_plan()
+    {
+        $this->db->where("id", $booked_id);
+        $query = $this->db->get('booked_tours');
+        return $query->result();
+    }
 }

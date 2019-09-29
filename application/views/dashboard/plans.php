@@ -24,7 +24,6 @@
                             </div>
                         </div>     
                         <!-- end page title --> 
-                        <div class="alert alert-success" style="display:none"></div>
 
                         <div class="row">
                             <div class="col-12">
@@ -33,7 +32,7 @@
                                         <i class="mdi mdi-plus-circle"></i> Add Plan
                                     </button>
                                     <h4 class="header-title mb-4">Manage Plans</h4>
-
+                                    <div class="alert alert-success" style="display:none"></div>
                                     <table class="table table-bordered table-stripped" id="plan_data">
                                         <thead>
                                         <tr>
@@ -65,26 +64,26 @@
 
 <div id="planModal" class="modal fade">
     <div class="modal-dialog">
-        <form method="post" action="getData" id="plan_form">
+        <form method="post" action="getData" id="plan_form" class="form-horizontal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Add plan</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <label>Plan name</label>
-                    <input type="text" name="plan_name" id="plan_name" class="form-control"> <br/>
+                    <label for="name" class="label-control">Plan name</label>
+                    <input type="text" name="plan_name" id="plan_name" class="form-control"><span class="text-danger name"></span> <br/>
                     <label>Image</label>
                     <input type="file" name="image" id="image">
-                    <span id="plan_uploaded_image"></span> <br/>
+                    <span id="plan_uploaded_image"></span><br/> <span class="text-danger image"></span><br/>
                     <label>Start date</label>
-                    <input type="date" name="start_date" id="start_date" class="form-control"> <br/>
+                    <input type="date" name="start_date" id="start_date" class="form-control"><span class="text-danger s_date"></span> <br/>
                     <label>End date</label>
-                    <input type="date" name="end_date" id="end_date" class="form-control"> <br/>
+                    <input type="date" name="end_date" id="end_date" class="form-control"> <span class="text-danger e_date"></span> <br/>
                     <label>Plan Cost</label>
-                    <input type="text" name="plan_cost" id="plan_cost" class="form-control"> <br/>
+                    <input type="text" name="plan_cost" id="plan_cost" class="form-control"><span class="text-danger cost"></span> <br/>
                     <label>Description</label>
-                    <input type="textarea" name="description" id="description" class="form-control"> <br/>
+                    <textarea name="description" id="description" class="form-control"></textarea> <span class="text-danger description"></span>
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="plan_id" id="plan_id">
@@ -122,15 +121,60 @@
             var planCost = $('#plan_cost').val();
             var planDescription = $('#description').val();
 
+            var result='';
+
+            if(planName=='')
+            {
+                $('.name').text('*Plan Name field is required!');
+            }
+            else{
+                $('.name').text('');
+                result +='1';
+            }
+
             if(jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1)
             {
-                alert('Invalid image file');
+                $('.image').text('*Image field is required!');
                 //remove it if invalid
                 $('#image').val('');
-                return false;
             }
-            
-            if(planName != '' && startDate != '' && endDate != '' && planCost != '' && planDescription != '')
+            else{
+                $('.image').text('');
+                result +='2';
+            }
+            if(startDate=='')
+            {
+                $('.s_date').text('*Start date field is required!');
+            }
+            else{
+                $('.s_date').text('');
+                result +='3';
+            }
+            if(endDate=='')
+            {
+                $('.e_date').text('*End date field is required!');
+            }
+            else{
+                $('.e_date').text('');
+                result +='4';
+            }
+            if(planCost=='')
+            {
+                $('.cost').text('*Plan Cost field is required!');
+            }
+            else{
+                $('.cost').text('');
+                result +='5';
+            }
+            if(planDescription=='')
+            {
+                $('.description').text('*Description field is required!');
+            }
+            else{
+                $('.description').text('');
+                result +='6';
+            }
+            if(result == '123456')
             {
                 $.ajax({
                     url:baseDir + 'dashboard/dashboard/plan_action',
@@ -140,16 +184,31 @@
                     processData:false,
                     success:function(data)
                     {
-                        alert(data);
-                        $('#plan_form')[0].reset();
-                        $('#planModal').modal('hide');
-                        dataTable.ajax.reload();
+                        if(data)
+                        {
+                            if($('#plan_id').val()!= '')
+                            {
+                                $('#plan_form')[0].reset();
+                                $('#planModal').modal('hide');
+                                $('.alert-success').html('Plan details updated successfully!').fadeIn().delay(5000).fadeOut('slow');
+                                dataTable.ajax.reload();
+                            }
+                            else{
+                                $('#plan_form')[0].reset();
+                                $('#planModal').modal('hide');
+                                $('.alert-success').html('Plan details added successfully!').fadeIn().delay(5000).fadeOut('slow');
+                                dataTable.ajax.reload();
+                            }
+                        }
+                        else{
+                            alert('error');
+                        }
+                    },
+                    error:function()
+                    {
+                        alert('Unable to add plan!');
                     }
                 });
-            }
-            else
-            {
-                alert('All fields are required');
             }
         });
         $(document).on('click', '#addButton', function(){

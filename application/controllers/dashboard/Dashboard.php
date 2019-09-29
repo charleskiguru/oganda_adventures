@@ -151,4 +151,20 @@ class Dashboard extends CI_Controller {
 		);
 		echo json_encode($output);
 	}
+	function fetch_single_booked_plan()
+	{
+		$output = array();
+		$this->load->model("booked");
+		$data = $this->booked->fetch_single_booked_plan($_POST["booked_id"]);
+
+		foreach ($data as $row) {
+			$output['plan_booked'] 	= $row->plan_booked;
+			$output['booking_id'] 	= $row->booking_id;
+			$output['first_name'] 	= $row->first_name;
+			$output['phoneno'] 	= $row->phoneno;
+			$output['total_cost'] 	= $row->total_cost;
+			$output['booking_status'] 	= $row->booking_status;
+		}
+		echo json_encode($output);
+	}
 }

@@ -26,5 +26,13 @@ class Main_model extends CI_Model {
 	{
 		$this->db->where("id", $plan_id);
 		$this->db->update("plans", $data);
+
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

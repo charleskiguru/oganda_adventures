@@ -74,14 +74,14 @@ class Plans extends CI_Model {
 
         if($this->db->affected_rows() > 0)
         {
-            $api_username = 'oganda_adventures';
-            $api_key = 'c7bc975e7bc589fa87530792e7530e41f77344fc92d57225f1068f7072e90331';
+            $api_username = 'oganda';
+            $api_key = '360bac58785a24ecd97fedb4636c12eef8ce614c012eaf02dd6b08b0321f3bed';
             $FirstName = $this->input->post('first_name');
             $PlanName = $this->input->post('plan_name');
             $TotalCost = $this->input->post('total_cost');
             require_once(APPPATH.'libraries/AfricasTalkingGateway.php');
             $gateway = new AfricasTalkingGateway($api_username, $api_key);
-            $sms_message = 'Dear customer, you have successfully booked our plans. Please pay to complete booking. Thank you and welcome back to Oganda Adventures.';
+            $sms_message = 'Dear '.$FirstName.', your booking ID is '.$bookingID.'. Please pay Kshs '.$TotalCost.' to complete booking. Thank you and welcome back to Oganda Adventures.';
             $recipient = $this->input->post('phoneno');
             try{
                 $results  = $gateway->sendMessage($recipient, $sms_message);
