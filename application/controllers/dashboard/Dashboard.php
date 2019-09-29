@@ -167,4 +167,13 @@ class Dashboard extends CI_Controller {
 		}
 		echo json_encode($output);
 	}
+	function booked_action()
+	{
+		$updated_data = array(
+			'booking_status'	=>	$this->input->post('status')
+		);
+		$this->load->model('booked');
+		$this->booked->update_booked_plan($this->input->post("booked_id"), $updated_data);
+		echo 'Data Updated';
+	}
 }

@@ -24,11 +24,11 @@
                             </div>
                         </div>     
                         <!-- end page title --> 
-                        <div class="alert alert-success" style="display:none"></div>
 
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-box">
+                                <div class="alert alert-success" style="display:none"></div>
                                     <table class="table table-responsive table-bordered table-stripped" id="booked_data">
                                         <thead>
                                         <tr>
@@ -114,7 +114,6 @@
             ]
         });
         $(document).on('click', '.update', function(){
-            $('#bookedModal').modal('show');
             var booked_id=$(this).attr("id");
             $.ajax({
                 url:baseDir + 'dashboard/dashboard/fetch_single_booked_plan',
@@ -128,8 +127,8 @@
                     $('#booking_id').val(data.booking_id);
                     $('#total_cost').val(data.total_cost);
                     $("div.status select").val(data.booking_status);
-                    $('#booked_id').val(data.booked_id);
-                    $('#phoneno').val(data.phoneno);
+                    $("#phoneno").val(data.phoneno)
+                    $('#booked_id').val(booked_id);
 
                 }
             });
@@ -144,10 +143,22 @@
                     processData:false,
                     success:function(data)
                     {
-                        alert(data);
-                        $('#booked_form')[0].reset();
-                        $('#bookedModal').modal('hide');
-                        dataTable.ajax.reload();
+                        if(data)
+                        { 
+                            alert(data);
+                            $('#booked_form')[0].reset();
+                            $('#bookedModal').modal('hide');
+                            dataTable.ajax.reload();
+                            $('.alert-success').html('Payment details updated successfully!').fadeIn().delay(5000).fadeOut('slow');
+                        }
+                        else{
+                            alert('Error');
+                        }
+                        
+                    },
+                    error:function()
+                    {
+                        alert('Payment details not updated');
                     }
                 });
             

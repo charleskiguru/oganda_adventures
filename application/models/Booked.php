@@ -43,10 +43,45 @@ class Booked extends CI_Model {
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
-    function fetch_single_booked_plan()
+    function fetch_single_booked_plan($booked_id)
     {
         $this->db->where("id", $booked_id);
         $query = $this->db->get('booked_tours');
         return $query->result();
     }
+    function update_booked_plan($booked_id, $data)
+	{
+		$this->db->where("id", $booked_id);
+		$this->db->update("booked_tours", $data);
+
+		if($this->db->affected_rows() > 0)
+		{
+            // $api_username = 'oganda';
+            // $api_key = '360bac58785a24ecd97fedb4636c12eef8ce614c012eaf02dd6b08b0321f3bed';
+            // $FirstName = $this->input->post('first_name');
+            // $PlanName = $this->input->post('plan_booked');
+            // $BookingId = $this->input->post('booking_id');
+            // $TotalCost = $this->input->post('total_cost');
+            // require_once(APPPATH.'libraries/AfricasTalkingGateway.php');
+            // $gateway = new AfricasTalkingGateway($api_username, $api_key);
+            // $sms_message = 'Dear '.$FirstName.', your have successfully completed the payments for booking ID '.$BookingId.'. We will notify you about the arrangements. Thank you from Oganda Adventures.';
+            // $recipient = $this->input->post('phoneno');
+            // try{
+            //     $results  = $gateway->sendMessage($recipient, $sms_message);
+            //     // foreach($results as $result) {
+            //     //     if ($result->messageId == 'None'){
+            //     //         $msg_err = $msg_err . $result->status . '</br>';
+            //     //     }else{
+            //     //     }
+            //     // }
+            // }catch ( AfricasTalkingGatewayException $e ){
+            //     //$msg_err = $msg_err . $e->getMessage() . '</br>';
+            //     return false;
+            // }
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }

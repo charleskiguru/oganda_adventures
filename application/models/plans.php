@@ -68,7 +68,7 @@ class Plans extends CI_Model {
             'no_kids'       =>  $this->input->post('no_kids'),
             'total_cost'    =>  $this->input->post('total_cost'),
             'nationality'   =>  $this->input->post('nationality'),
-            'created_at'    =>  date('Y-m-d H:i:s')
+            'created_at'    =>  date('d-m-Y H:i:s')
         );
         $this->db->insert('booked_tours', $field);
 
