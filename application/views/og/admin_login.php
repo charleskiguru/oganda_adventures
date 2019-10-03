@@ -8,7 +8,7 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
 
         <!-- App css -->
         <link href="<?php echo base_url(); ?>assets1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -77,7 +77,7 @@
 
 
         <footer class="footer footer-alt">
-            2019 &copy; Oganda adventures <a href="#" 
+            2019 &copy; Oganda adventures <a href="#" ></a>
         </footer>
 
         <!-- Vendor js -->

@@ -8,13 +8,8 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--
 
-Template 2078 Adventure
-
-http://www.tooplate.com/view/2078-adventure
-
--->
+	<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.ico">
 	<!-- Bootstrap CSS
    ================================================== -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
@@ -49,6 +44,9 @@ http://www.tooplate.com/view/2078-adventure
 	<!-- Google web font
    ================================================== -->
 	<link href='https://fonts.googleapis.com/css?family=Raleway:700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" >
+        var baseDir = '<?php echo base_url(); ?>';
+    </script>
 	
 </head>
 
@@ -504,7 +502,7 @@ http://www.tooplate.com/view/2078-adventure
 							</div>
 							<div class="plan-button">
 								<div class="plan_id"></div>
-								<button type="button" cost="<?=$val['plan_cost']?>" value="<?=$val['plan_name']?>" data-backdrop="false" class="btn btn-primary btn-block book">Book now</button>
+								<button type="button" cost="<?=$val['plan_cost']?>" value="<?=$val['plan_name']?>" data-backdrop="false" class="btn btn-warning btn-block book">Book now</button>
 							</div>
 						</div>
 					</div>
@@ -531,36 +529,42 @@ http://www.tooplate.com/view/2078-adventure
 				<label for="firstname" class="label-control col-md-4">First Name <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input type="text" name="first_name" class="form-control">
+					<span class="text-danger f_name"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="lastname" class="label-control col-md-4">Last Name <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input type="text" name="last_name" class="form-control">
+					<span class="text-danger l_name"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="address" class="label-control col-md-4">Email Address <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input type="email" name="email" class="form-control">
+					<span class="text-danger email"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="phone" class="label-control col-md-4">Phone Number <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input type="number" name="phoneno" class="form-control">
+					<span class="text-danger phoneno"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="adults" class="label-control col-md-4">No of adults <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input id="no_adult" type="number" name="no_adults" class="form-control">
+					<span class="text-danger adults"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="kids" class="label-control col-md-4">No of kids <span style="color: red !important; display: inline; float: none;">*</span> </label>
 				<div class="col-md-8">
 					<input id="no_kid" type="number" name="no_kids" class="form-control">
+					<span class="text-danger kids"></span>
 				</div>
 			</div>
 			<div class="form-group">
@@ -845,25 +849,26 @@ http://www.tooplate.com/view/2078-adventure
 			<!-- Contact form section
 			================================================== -->
 			<div class="col-md-offset-1 col-md-10 col-sm-12">
-				<form action="<?php echo base_url(); ?>welcome/contact_validation" method="post" class="wow fadeInUp" data-wow-delay="0.6s">
+				<form action=""  id="contactForm" method="post" class="form-group">
 					<div class="col-md-4 col-sm-6">
-						<input type="text" class="form-control" placeholder="Name" name="name">
-						<span class="text-danger"><?php echo form_error('name'); ?></span>
+						<input type="text" name="contact_name" id="contact_name" class="form-control" placeholder="Name" />
+						<span class="text-danger name"></span>
 					</div>
 					<div class="col-md-4 col-sm-6">
-						<input type="email" class="form-control" placeholder="Email" name="email">
-						<span class="text-danger"><?php echo form_error('email'); ?></span>
+						<input type="email" name="contact_email" id="contact_email" class="form-control" placeholder="Email">
+						<span class="text-danger email"></span>
 					</div>
 					<div class="col-md-4 col-sm-12">
-						<input type="text" class="form-control" placeholder="Subject" name="subject">
-						<span class="text-danger"><?php echo form_error('subject'); ?></span>
+						<input type="text" name="contact_subject" id="contact_subject" class="form-control" placeholder="Subject">
+						<span class="text-danger subject"></span>
 					</div>
 					<div class="col-md-12 col-sm-12">
-						<textarea class="form-control" placeholder="Message" rows="7" name="message"></textarea>
-						<span class="text-danger"><?php echo form_error('message'); ?></span>
+						<textarea class="form-control" name="contact_message" id="contact_message" placeholder="Message" rows="7"></textarea>
+						<span class="text-danger message"></span>
 					</div>
 					<div class="col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8">
-						<input type="submit" name="submit" class="form-control" value="SHOOT MESSAGE">
+						<input type="submit" name="contactButton" id="contactButton" class="form-control" value="Shoot Message">
+						<span class="text-success alert"></span>
 					</div>
 				</form>
 			</div>
@@ -888,7 +893,7 @@ http://www.tooplate.com/view/2078-adventure
 
 <!-- Footer section
 ================================================== -->
-<footer>
+<footer class="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-sm-12">
@@ -958,44 +963,56 @@ http://www.tooplate.com/view/2078-adventure
 			var result = '';
 			if(firstName.val()==''){
 				firstName.parent().parent().addClass('has-error');
+				$('.f_name').text('This field is required.');
 			}
 			else{
 				firstName.parent().parent().removeClass('has-error');
+				$('.f_name').text('');
 				result +='1';
 			}
 			if(lastName.val()==''){
 				lastName.parent().parent().addClass('has-error');
+				$('.l_name').text('This field is required.');
 			}
 			else{
 				lastName.parent().parent().removeClass('has-error');
+				$('.l_name').text('');
 				result += '2';
 			}
 			if(Email.val()==''){
 				Email.parent().parent().addClass('has-error');
+				$('.email').text('This field is required.');
 			}
 			else{
 				Email.parent().parent().removeClass('has-error');
+				$('.email').text('');
 				result += '3';
 			}
 			if(phoneNumber.val()==''){
 				phoneNumber.parent().parent().addClass('has-error');
+				$('.phoneno').text('This field is required.');
 			}
 			else{
 				phoneNumber.parent().parent().removeClass('has-error');
+				$('.phoneno').text('');
 				result += '4';
 			}
 			if(noAdults.val()==''){
 				noAdults.parent().parent().addClass('has-error');
+				$('.adults').text('This field is required.');
 			}
 			else{
 				noAdults.parent().parent().removeClass('has-error');
+				$('.adults').text('');
 				result += '5';
 			}
 			if(noKids.val()==''){
 				noKids.parent().parent().addClass('has-error');
+				$('.kids').text('This field is required.');
 			}
 			else{
 				noKids.parent().parent().removeClass('has-error');
+				$('.kids').text('');
 				result += '6';
 			}
 			if(Nation.val()==''){
@@ -1027,6 +1044,72 @@ http://www.tooplate.com/view/2078-adventure
 					}
 				});
 			}
+		});
+		$('#contactButton').click(function(){
+			event.preventDefault();
+			var data = $('#contactForm').serialize();
+			var Name = $('#contact_name').val();
+			var Email= $('#contact_email').val();
+			var Subject= $('#contact_subject').val();
+			var Message= $('#contact_message').val();
+			
+			result = '';
+			if(Name=='')
+			{
+				$('.name').text('*Name is required');
+			}
+			else{
+				$('.name').text('');
+				result +='1';
+			}
+			if(Email=='')
+			{
+				$('.email').text('*Email is required');
+			}
+			else{
+				$('.email').text('');
+				result +='2';
+			}
+			if(Subject=='')
+			{
+				$('.subject').text('*Subject is required');
+			}
+			else{
+				$('.subject').text('');
+				result +='3';
+			}
+			if(Message=='')
+			{
+				$('.message').text('*Message is required');
+			}
+			else{
+				$('.message').text('');
+				result +='4';
+			}
+			if(result=='1234')
+			{
+				$.ajax({
+					type:'ajax',
+					url:baseDir + 'welcome/contact',
+					method:'POST',
+					data:data,
+					async:false,
+					dataType:'json',
+					success: function(response){
+						if(response.success){
+							$('#contactForm')[0].reset();
+							$('.alert').text("Data inserted successfully");
+						}
+						else{
+							alert('error');
+						}
+					},
+					error: function(){
+						alert('Unable to send message');
+					}
+				});
+			}
+
 		});
 	});
 </script>

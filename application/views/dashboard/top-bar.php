@@ -88,7 +88,7 @@
                 <div class="logo-box">
                     <a href="index.html" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="<?php echo base_url(); ?>assets1/images/logo.jpg" alt="" height="25">
+                            <img src="<?php echo base_url(); ?>assets/images/logo.jpg" alt="" height="25">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                         <span class="logo-sm">

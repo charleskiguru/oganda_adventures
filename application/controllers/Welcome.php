@@ -25,20 +25,15 @@ class Welcome extends CI_Controller {
 		}
 		echo json_encode($msg);
 	}
-	public function contact_validation()
+	public function contact()
 	{
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
-		$this->form_validation->set_rules('subject', 'Subject', 'required');
-		$this->form_validation->set_rules('message', 'Message', 'required');
-		
-		if($this->form_validation->run())
+		$this->load->model('contact');
+		$result = $this->contact->contacts();
+		$msg['success'] = false;
+		if($result)
 		{
-
+			$msg['success'] = true;
 		}
-		else{
-			$this->index();
-		}
+		echo json_encode($msg);
 	}
 }
