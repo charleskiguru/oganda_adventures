@@ -11,6 +11,7 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->model('plans');
 		$data['plans'] = $this->plans->get_plan();
+		$data['sliders'] = $this->plans->get_sliders();
 
 		$this->load->view('my_page', $data);
 	}

@@ -14,7 +14,9 @@ class Dashboard extends CI_Controller {
 	}
 	public function slider()
 	{
-		$this->load->view('dashboard/slider');
+		$this->load->model('plans');
+		$data['sliders'] = $this->plans->get_sliders();
+		$this->load->view('dashboard/slider', $data);
 	}
 	public function plans()
 	{
@@ -23,6 +25,10 @@ class Dashboard extends CI_Controller {
 	public function plans_booked()
 	{
 		$this->load->view("dashboard/booked_plans");
+	}
+	public function add_edit_slider()
+	{
+		$this->load->view('dashboard/add_edit_slider');
 	}
 	function fetch_plans(){
 		$this->load->model("plans");
@@ -123,6 +129,26 @@ class Dashboard extends CI_Controller {
 		}
 		echo json_encode($output);
 	}
+	function fetch_single_slider()
+	{
+		$output = array();
+		$this->load->model("slider");
+		$data = $this->slider->fetch_single_slider($_POST["slider_id"]);
+
+		foreach ($data as $row) {
+			if($row->image != '')
+			{
+				$output['image'] = '<img src="' .base_url().'assets/images/slider/'.$row->image.'" class="img-thumbnail" width="75"/>
+				<input type="hidden" name="hidden_user_image" value="'.$row->image.'"> ';
+			}
+			else{
+				$output['image'] = '<input type="hidden" name="hidden_user_image" value=" ">';
+			}
+			$output['title'] 	= $row->title;
+			$output['description'] 	= $row->description;
+		}
+		echo json_encode($output);
+	}
 	function fetch_booked_plans(){
 		$this->load->model('booked');
 		$fetch_data = $this->booked->make_datatables();
@@ -175,5 +201,51 @@ class Dashboard extends CI_Controller {
 		$this->load->model('booked');
 		$this->booked->update_booked_plan($this->input->post("booked_id"), $updated_data);
 		echo 'Data Updated';
+	}
+	function slider_action()
+	{
+		if($this->input->post('slider_id') !='')
+		{
+			$image = '';
+			if($_FILES["image"]["name"] != '')
+			{
+				$image = $this->upload_slider();
+			}
+			else
+			{
+				$image = $this->input->post("hidden_user_image");
+			}
+			$updated_data = array(
+				'image'			=>	$image,
+				'title'			=>	$this->input->post('title'),
+				'description'	=>	$this->input->post('description')
+			);
+			$this->load->model('slider');
+			$this->slider->update_slider($this->input->post("slider_id"), $updated_data);
+			echo 'Data Updated';
+		}
+		else{
+			$insert_data = array(
+				'image'     => $this->upload_slider(),
+				'title' => $this->input->post('title'),
+				'description' => $this->input->post('description'),
+				'date'		=>	date('d-m-Y')
+			);
+	
+			$this->load->model('slider');
+			$this->slider->insert_slider($insert_data);
+			echo "Data inserted";
+		}
+	}
+	function upload_slider()
+	{
+		if(isset($_FILES["image"]))
+		{
+			$extension = explode('.', $_FILES['image']['name']);
+			$new_name = rand() . '.' . $extension[1];
+			$destination = './assets/images/slider/' . $new_name;
+			move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+			return $new_name;
+		}
 	}
 }

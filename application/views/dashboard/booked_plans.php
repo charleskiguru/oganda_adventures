@@ -102,6 +102,7 @@
             "processing":true,
             "serverSide":true,
             "order":[],
+            "scrollX": true,
             "ajax":{
                 url:baseDir + 'dashboard/dashboard/fetch_booked_plans',
                 type:"POST"

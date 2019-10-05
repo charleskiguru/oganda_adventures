@@ -101,6 +101,7 @@
             "processing":true,
             "serverSide":true,
             "order":[],
+            "scrollX": true,
             "ajax":{
                 url:baseDir + 'dashboard/dashboard/fetch_plans',
                 type:"POST"
@@ -241,7 +242,7 @@
                     $('#action').val("Edit");
 
                 }
-            })
+            });
         });
     });
 </script>

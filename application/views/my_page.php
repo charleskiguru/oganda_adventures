@@ -98,41 +98,23 @@
 <div id="home">
 	<div class="site-slider">
         <ul class="bxslider">
+			<?php 
+				foreach ($sliders as $key => $val) {
+			?>
 			<li>
-                <img src="<?php echo base_url(); ?>assets/images/slider/img1.jpg" alt="Cultural Diversity">
+                <img src="<?php echo base_url(); ?>assets/images/slider/<?=$val['image']?>" alt="Cultural Diversity">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="slider-caption">
-                                <h2>Cultural tours</h2>
-                                <p class="color-white">We Visit cultural villages to embrase our cultures</p>
+                                <h2><?=$val['title']?></h2>
+                                <p class="color-white"><?=$val['description']?></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </li>
-            <li>
-                <img src="<?php echo base_url(); ?>assets/images/slider/img2.jpg" alt="ngong hills">
-                <div class="container caption-wrapper">
-                    <div class="slider-caption">
-                        <h2>Ngong Hills hike</h2>
-                        <p class="color-white">Join us to Ngong hills Hike and enjoy the beauty of our country</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <img src="<?php echo base_url(); ?>assets/images/slider/img3.jpg" alt="slider image 3">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="slider-caption">
-                                <h2>National Museums</h2>
-                                <p class="color-white">A visit to the National Museum to know more about our history.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
+			<?php } ?>
         </ul> <!-- /.bxslider -->
     </div> <!-- /.site-slider -->
 </div>
@@ -1098,7 +1080,7 @@
 					success: function(response){
 						if(response.success){
 							$('#contactForm')[0].reset();
-							$('.alert').text("Data inserted successfully");
+							$('.alert').text("Message sent successfully");
 						}
 						else{
 							alert('error');

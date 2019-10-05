@@ -53,6 +53,11 @@ class Plans extends CI_Model {
         $result = $this->db->query("select * from plans where status=1")->result_array();
         return $result;
     }
+    public function get_sliders()
+    {
+        $result = $this->db->query("select * from slider_images")->result_array();
+        return $result;
+    }
     public function booking()
     {
         $this->load->helper('string');
