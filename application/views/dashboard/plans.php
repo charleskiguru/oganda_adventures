@@ -242,7 +242,25 @@
                     $('#action').val("Edit");
 
                 }
+            })
+        });
+        $(document).on('click', '.delete', function(){
+            var plan_id = $(this).attr("id");
+            if(confirm("Are you sure you want to delete this?"))
+            {
+                $.ajax({
+                url:baseDir + 'dashboard/dashboard/delete_single_plan',
+                method:'POST',
+                data:{plan_id:plan_id},
+                success: function(data){
+                    $('.alert-success').html('Plan details deleted successfully!').fadeIn().delay(5000).fadeOut('slow');
+                    dataTable.ajax.reload();
+                }
             });
+            }
+            else{
+                return false;
+            }
         });
     });
 </script>

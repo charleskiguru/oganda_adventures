@@ -114,26 +114,6 @@
                 }
             ]
         });
-        $(document).on('click', '.update', function(){
-            var booked_id=$(this).attr("id");
-            $.ajax({
-                url:baseDir + 'dashboard/dashboard/fetch_single_booked_plan',
-                method:"POST",
-                data:{booked_id, booked_id},
-                dataType:"json",
-                success:function(data){
-                    $('#bookedModal').modal('show');
-                    $('#first_name').val(data.first_name);
-                    $('#plan_booked').val(data.plan_booked);
-                    $('#booking_id').val(data.booking_id);
-                    $('#total_cost').val(data.total_cost);
-                    $("div.status select").val(data.booking_status);
-                    $("#phoneno").val(data.phoneno)
-                    $('#booked_id').val(booked_id);
-
-                }
-            });
-        });
         $(document).on('submit', '#booked_form', function(){
             var option=$('.status').find(":selected").text();
             $.ajax({
@@ -164,5 +144,44 @@
                 });
             
         });
+    });
+    $(document).on('click', '.update', function(){
+            var booked_id=$(this).attr("id");
+            $.ajax({
+                url:baseDir + 'dashboard/dashboard/fetch_single_booked_plan',
+                method:"POST",
+                data:{booked_id, booked_id},
+                dataType:"json",
+                success:function(data){
+                    $('#bookedModal').modal('show');
+                    $('#first_name').val(data.first_name);
+                    $('#plan_booked').val(data.plan_booked);
+                    $('#booking_id').val(data.booking_id);
+                    $('#total_cost').val(data.total_cost);
+                    $("div.status select").val(data.booking_status);
+                    $("#phoneno").val(data.phoneno)
+                    $('#booked_id').val(booked_id);
+
+                }
+            });
+        });
+    $(document).on('click', '.delete', function(){
+        var booked_id = $(this).attr("id");
+        if(confirm("Are you sure you want to delete?"))
+        {
+            $.ajax({
+            url:baseDir + 'dashboard/dashboard/delete_booked_plan',
+            method:'POST',
+            data:{booked_id:booked_id},
+            dataType:'json',
+            success: function(data){
+                $('.alert-success').html('Booked plan details deleted successfully!').fadeIn().delay(5000).fadeOut('slow');
+                dataTable.ajax.reload();
+            }
+        });
+        }
+        else{
+            return false;
+        }
     });
 </script>

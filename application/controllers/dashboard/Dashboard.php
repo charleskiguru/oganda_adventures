@@ -26,9 +26,15 @@ class Dashboard extends CI_Controller {
 	{
 		$this->load->view("dashboard/booked_plans");
 	}
-	public function add_edit_slider()
+	public function team()
 	{
-		$this->load->view('dashboard/add_edit_slider');
+		$this->load->model('team');
+		$data['teams']=$this->team->get_team();
+		$this->load->view('dashboard/team', $data);
+	}
+	public function gallery()
+	{
+		$this->load->view('dashboard/gallery');
 	}
 	function fetch_plans(){
 		$this->load->model("plans");
@@ -129,6 +135,12 @@ class Dashboard extends CI_Controller {
 		}
 		echo json_encode($output);
 	}
+	function delete_booked_plan()
+	{
+		$this->load->model('plans');
+		$this->plans->delete_booked_plan($_POST["booked_id"]);
+		echo "Booked plan successfuly deleted";
+	}
 	function fetch_single_slider()
 	{
 		$output = array();
@@ -157,7 +169,14 @@ class Dashboard extends CI_Controller {
 			$sub_array	 = array();
 			$sub_array[] = $row->plan_booked;
 			$sub_array[] = $row->booking_id;
-			$sub_array[] = $row->booking_status;
+
+			if($row->booking_status=='paid')
+			{
+				$sub_array[] = '<span class="badge badge-success">'.$row->booking_status.'</span>' ;
+			}
+			else{
+				$sub_array[] = '<span class="badge badge-danger">'.$row->booking_status.'</span>' ;
+			}
 			$sub_array[] = $row->first_name;
 			$sub_array[] = $row->phoneno;
 			$sub_array[] = $row->no_adults;
@@ -192,6 +211,12 @@ class Dashboard extends CI_Controller {
 			$output['booking_status'] 	= $row->booking_status;
 		}
 		echo json_encode($output);
+	}
+	function delete_single_plan()
+	{
+		$this->load->model('main_model');
+		$this->main_model->delete_single_plan($_POST["plan_id"]);
+		echo 'Plan deleted successfully';
 	}
 	function booked_action()
 	{
@@ -247,5 +272,90 @@ class Dashboard extends CI_Controller {
 			move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 			return $new_name;
 		}
+	}
+	function delete_slider()
+	{
+		$this->load->model('slider');
+		$this->slider->delete_slider($_POST["slider_id"]);
+		echo "Slider deleted successfully!";
+	}
+	function team_action(){
+		if($this->input->post("team_id")  != ""){
+			$image = '';
+			if($_FILES["image"]["name"] != '')
+			{
+				$image = $this->upload_team();
+			}
+			else
+			{
+				$image = $this->input->post("hidden_user_image");
+			}
+			$updated_data = array(
+				'full_name'		=>	$this->input->post('full_name'),
+				'image'			=>	$image,
+				'role'			=>	$this->input->post('role'),
+				'facebook'		=>	$this->input->post('facebook'),
+				'twitter'		=>	$this->input->post('twitter'),
+				'instagram'		=>	$this->input->post('instagram')
+			);
+			$this->load->model('team');
+			$this->team->update_team($this->input->post("team_id"), $updated_data);
+			echo 'Data Updated';
+		}
+		else
+		{
+			$insert_data = array(
+				'full_name' => $this->input->post('full_name'),
+				'image'		=> $this->upload_team(),
+				'role'		=> $this->input->post('role'),
+				'facebook'	=> $this->input->post('facebook'),
+				'twitter'	=> $this->input->post('twitter'),
+				'instagram'	=> $this->input->post('instagram')
+			);
+			$this->load->model('main_model');
+			$this->main_model->insert_team($insert_data);
+			echo "Team member inserted successfully";
+		}
+	}
+	function upload_team()
+	{
+		if(isset($_FILES["image"]))
+		{
+			$extension = explode('.', $_FILES['image']['name']);
+			$new_name = rand() . '.' . $extension[1];
+			$destination = './assets/images/team/' . $new_name;
+			move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+			return $new_name;
+		}
+	}
+	function fetch_single_team()
+	{
+		$output = array();
+		$this->load->model("team");
+		$data = $this->team->fetch_single_team($_POST["team_id"]);
+
+		foreach ($data as $row) {
+			$output['full_name'] 	= $row->full_name;
+
+			if($row->image != '')
+			{
+				$output['image'] = '<img src="' .base_url().'assets/images/slider/'.$row->image.'" class="img-thumbnail" width="75"/>
+				<input type="hidden" name="hidden_user_image" value="'.$row->image.'"> ';
+			}
+			else{
+				$output['image'] = '<input type="hidden" name="hidden_user_image" value=" ">';
+			}
+			$output['role'] 		= $row->role;
+			$output['facebook'] 	= $row->facebook;
+			$output['twitter'] 		= $row->twitter;
+			$output['instagram'] 	= $row->instagram;
+		}
+		echo json_encode($output);
+	}
+	function delete_team()
+	{
+		$this->load->model('team');
+		$this->team->delete_team($_POST["team_id"]);
+		echo "Member deleted successfully!";
 	}
 }

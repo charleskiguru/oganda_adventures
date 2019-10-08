@@ -45,6 +45,11 @@
 
         <!-- App js-->
         <script src="<?php echo base_url(); ?>assets1/js/app.min.js"></script>
+        <!-- Magnific Popup-->
+        <script src="<?php echo base_url(); ?>assets1/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+        <!-- Gallery Init-->
+        <script src="<?php echo base_url(); ?>assets1/js/pages/gallery.init.js"></script>
         
     </body>
 </html>

@@ -14,6 +14,7 @@
 
         <!-- Plugins css -->
         <link href="<?php echo base_url(); ?>assets1/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url(); ?>assets1/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
         <link href="<?php echo base_url(); ?>assets1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

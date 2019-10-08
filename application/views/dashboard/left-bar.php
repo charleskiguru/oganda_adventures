@@ -24,10 +24,10 @@
                         <a href="<?php echo base_url(); ?>dashboard/dashboard/plans">Trip plans</a>
                     </li>
                     <li>
-                        <a href="#">Team</a>
+                        <a href="<?php echo base_url(); ?>dashboard/dashboard/team">Team</a>
                     </li>
                     <li>
-                        <a href="#">Gallery</a>
+                        <a href="<?php echo base_url(); ?>dashboard/dashboard/gallery">Gallery</a>
                     </li>
                 </ul>
             </li>

@@ -294,52 +294,24 @@
 
 			<!-- Section title
 			================================================== -->
-
+		<?php 
+			foreach ($teams as $key => $val) {
+		?>
 			<div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
 				<div class="team-wrapper">
-					<img src="<?php echo base_url(); ?>assets/images/manu.jpg" class="img-responsive" alt="team img" height="100">
+					<img src="<?php echo base_url(); ?>assets/images/team/<?=$val['image']?>" class="img-responsive" alt="team img" height="100">
 						<div class="team-des">
-							<h4>Emmanuel Oganda</h4>
-							<h3>Managing Director</h3>
+							<h4><?=$val['full_name']?></h4>
+							<h3><?=$val['role']?></h3>
 							<ul class="social-icon">
-								<li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.3s"></a></li>
-								<li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.6s"></a></li>
-								<li><a href="#" class="fa fa-instagram wow fadeIn" data-wow-delay="0.6s"></a></li>
+								<li><a href="<?=$val['facebook']?>" class="fa fa-facebook wow fadeIn" data-wow-delay="0.3s"></a></li>
+								<li><a href="<?=$val['twitter']?>" class="fa fa-twitter wow fadeIn" data-wow-delay="0.6s"></a></li>
+								<li><a href="<?=$val['instagram']?>" class="fa fa-instagram wow fadeIn" data-wow-delay="0.6s"></a></li>
 							</ul>
 						</div>
 				</div>
 			</div>
-
-			<div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.3s">
-				<div class="team-wrapper">
-					<img src="<?php echo base_url(); ?>assets/images/loice.jpg" class="img-responsive" alt="team img" height="100">
-						<div class="team-des">
-							<h4>Loice O Mogotu</h4>
-							<h3>Chief Explorer</h3>
-							<ul class="social-icon">
-								<li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.3s"></a></li>
-								<li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.6s"></a></li>
-								<li><a href="#" class="fa fa-instagram wow fadeIn" data-wow-delay="0.6s"></a></li>
-							</ul>
-						</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.6s">
-				<div class="team-wrapper">
-					<img src="<?php echo base_url(); ?>assets/images/charles.jpg" class="img-responsive" alt="team img" height="100">
-						<div class="team-des">
-							<h4>Charles Muraguri </h4>
-							<h3>Technical support</h3>
-							<ul class="social-icon">
-								<li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.3s"></a></li>
-								<li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.6s"></a></li>
-								<li><a href="#" class="fa fa-instagram wow fadeIn" data-wow-delay="0.6s"></a></li>
-							</ul>
-						</div>
-				</div>
-			</div>
-
+		<?php } ?>
 		</div>
 	</div>
 </section>

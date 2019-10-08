@@ -36,4 +36,21 @@ class Main_model extends CI_Model {
 			return false;
 		}
 	}
+	function delete_single_plan($plan_id)
+	{
+		$this->db->where("id", $plan_id);
+		$this->db->delete("plans");
+
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	function insert_team($data)
+    {
+        $this->db->insert('team', $data);
+    }
 }

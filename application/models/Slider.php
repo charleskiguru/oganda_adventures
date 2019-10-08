@@ -30,4 +30,9 @@ class Slider extends CI_Model {
 			return false;
 		}
 	}
+	function delete_slider($slider_id)
+	{
+		$this->db->where("id", $slider_id);
+		$this->db->delete("slider_images");
+	}
 }

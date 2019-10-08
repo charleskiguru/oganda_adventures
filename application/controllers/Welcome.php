@@ -10,8 +10,10 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('plans');
+		$this->load->model('team');
 		$data['plans'] = $this->plans->get_plan();
 		$data['sliders'] = $this->plans->get_sliders();
+		$data['teams'] = $this->team->get_team_homepage();
 
 		$this->load->view('my_page', $data);
 	}

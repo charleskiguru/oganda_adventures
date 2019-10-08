@@ -108,4 +108,17 @@ class Plans extends CI_Model {
             return false;
         }
     }
+    public function delete_booked_plan($booked_id)
+    {
+        $this->db->where("id", $booked_id);
+        $this->db->delete("booked_tours");
+
+        if($this->db->affected_rows() > 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
