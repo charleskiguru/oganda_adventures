@@ -175,12 +175,13 @@
                                 $('#team_form')[0].reset();
                                 $('#teamModal').modal('hide');
                                 $('.alert-success').html('Member details updated successfully!').fadeIn().delay(5000).fadeOut('slow');
-                                dataTable.ajax.reload();
+                                window.location.href = "<?php echo base_url(); ?>dashboard/dashboard/team";
                             }
                             else{
                                 $('#team_form')[0].reset();
                                 $('#teamModal').modal('hide');
                                 $('.alert-success').html('Member details added successfully!').fadeIn().delay(5000).fadeOut('slow');
+                                window.location.href = "<?php echo base_url(); ?>dashboard/dashboard/team";
                             }
                         }
                         else{
@@ -235,6 +236,7 @@
                     data:{team_id: team_id},
                     success: function(data){
                         $('.alert-success').html('Member details deleted successfully!').fadeIn().delay(5000).fadeOut('slow');
+                        window.location.href = "<?php echo base_url(); ?>dashboard/dashboard/slider";
                     }
                 });
             }

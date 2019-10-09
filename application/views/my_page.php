@@ -191,7 +191,7 @@
 				<h2>OGANDA ADVENTURES</h2>
 				<p class="color-white">
 					Oganda Adventures is a well established tours company and events camping with over two years experience in handling holidays within and outside Kenya for tourists and locals.<br/>
-					We have the ability to design unique events and tours to fit every client. Our budget for the safaris is economic prividing a unique opportunity for our clients to enjoy bush, beach and Africa's spectacular scenery not forgeting the world hidden treasures.
+					We have the ability to design unique events and tours to fit every client. Our budget for the safaris is economic providing an unique opportunity for our clients to enjoy bush, beach and Africa's spectacular scenery not forgeting the world hidden treasures.
 				</p>
 			</div>
 
@@ -210,7 +210,7 @@
    						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       						<div class="panel-body">
         						<p>
-        							We are always commited to making the lives of our clients happy, joyful and satified with safe and high quality trips.<br>
+        							We are always committed to making the lives of our clients happy, joyful and satisfied with safe and high quality trips.<br>
         						</p><br>
       						</div>
    						 </div>
@@ -829,17 +829,6 @@
 
 			<!-- Contact detail section
 			================================================== -->
-			<div class="contact-detail col-md-12 col-sm-12">
-				<div class="col-md-6 col-sm-6">
-					<h3><i class="icon-envelope medium-icon wow bounceIn" data-wow-delay="0.6s"></i> EMAIL</h3>
-					<p>info@ogandaadventures.com</p>
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<h3><i class="icon-phone medium-icon wow bounceIn" data-wow-delay="0.6s"></i> PHONES</h3>
-					<p>0703286210 | 0707434321 | 0797227594</p>
-				</div>
-			</div>
-
 		</div>
 	</div>
 </section>
@@ -848,18 +837,49 @@
 <!-- Footer section
 ================================================== -->
 <footer class="footer">
-	<div class="container">
+	<div class="container" background-color="white">
 		<div class="row">
-			<div class="col-md-12 col-sm-12">
-
-				<h2 class="wow bounceIn">OGANDA ADVENTURES</h2>
+			<div class="col-md-3 col-sm-3">
+				<img src="<?php echo base_url(); ?>assets/images/payments/mpesa.png" class="img" height="70px">   
+			</div> 
+			<div class="col-md-3 col-sm-3">
+				<img src="<?php echo base_url(); ?>assets/images/payments/equitel.png" class="img" height="70px">
+			</div>
+			<div class="col-md-3 col-sm-3">
+				<img src="<?php echo base_url(); ?>assets/images/payments/mastercard.png" class="img" height="70px">
+			</div>
+			<div class="col-md-3 col-sm-3">
+				<img src="<?php echo base_url(); ?>assets/images/payments/airtel-money.png" class="img" height="80px"> 
+			</div>
+		</div>
+		<div id="row">
+			<div class="col-md-12 col-sm-12" style="text-align:center;">
+				<h2 class="wow bounceIn">OGANDA ADVENTURES<span><h5>A signature of endless discoveries</h5></span></h2>
+			</div>
+		</div>
+		<div id="row">
+			<div class="col-md-4 col-sm-4">
+				<h3><i class="icon-envelope medium-icon wow bounceIn" data-wow-delay="0.6s"></i> EMAIL</h3>
+				<p>info@ogandaadventures.com</p>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<h3><i class="icon-phone medium-icon wow bounceIn" data-wow-delay="0.6s"></i> PHONES</h3>
+				<p>0703286210 | 0707434321 | 0797227594</p>
+			</div>	
+			<div class="col-md-4 col-sm-4">
 				<ul class="social-icon">
 					<li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.3s"></a></li>
 					<li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.6s"></a></li>
-					<li><a href="#" class="fa fa-dribbble wow fadeIn" data-wow-delay="0.9s"></a></li>
+					<li><a href="#" class="fa fa-instagram wow fadeIn" data-wow-delay="0.9s"></a></li>
 				</ul>
-				<p>Copyright &copy; 2019 Oganda Adventures </p>
-
+			</div>	
+		</div><br>
+		<div id="row" >
+			<div class="col-md-6 col-sm-6">
+				<a href="#">Copyright &copy; 2019 Oganda Adventures </a>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<a href="">Terms and Condtions</a>
 			</div>
 		</div>
 	</div>

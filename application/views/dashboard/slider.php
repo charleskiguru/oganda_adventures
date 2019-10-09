@@ -140,11 +140,13 @@
                             {
                                 $('#slider_form')[0].reset();
                                 $('#sliderModal').modal('hide');
+                                window.location.href = "<?php echo base_url(); ?>dashboard/dashboard/slider";
                                 $('.alert-success').html('Slider details updated successfully!').fadeIn().delay(5000).fadeOut('slow');
                             }
                             else{
                                 $('#slider_form')[0].reset();
                                 $('#sliderModal').modal('hide');
+                                window.location.href = "<?php echo base_url(); ?>dashboard/dashboard/slider";
                                 $('.alert-success').html('Slider details added successfully!').fadeIn().delay(5000).fadeOut('slow');
                             }
                         }
@@ -196,6 +198,7 @@
                     method:'POST',
                     data:{slider_id: slider_id},
                     success: function(data){
+                        window.location.href = "<?php echo base_url(); ?>dashboard/dashboard/slider";
                         $('.alert-success').html('Slider details deleted successfully!').fadeIn().delay(5000).fadeOut('slow');
                     }
                 });
