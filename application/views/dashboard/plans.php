@@ -38,10 +38,11 @@
                                         <tr>
                                             <th>Image</th>
                                             <th>Name</th>
-                                            <th>Start date</th>
-                                            <th>End date</th>
+                                            <th>Startdate</th>
+                                            <th>Enddate</th>
                                             <th>Cost</th>
-                                            <th width="15%">Description</th>
+                                            <th width="10%">Description</th>
+                                            <th>Status</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
@@ -77,13 +78,20 @@
                     <input type="file" name="image" id="image">
                     <span id="plan_uploaded_image"></span><br/> <span class="text-danger image"></span><br/>
                     <label>Start date</label>
-                    <input type="date" name="start_date" id="start_date" class="form-control"><span class="text-danger s_date"></span> <br/>
+                    <input type="date" name="start_date" id="start_date" class="form-control"><span class="text-danger s_date"></span>
                     <label>End date</label>
-                    <input type="date" name="end_date" id="end_date" class="form-control"> <span class="text-danger e_date"></span> <br/>
+                    <input type="date" name="end_date" id="end_date" class="form-control"> <span class="text-danger e_date"></span>
                     <label>Plan Cost</label>
-                    <input type="text" name="plan_cost" id="plan_cost" class="form-control"><span class="text-danger cost"></span> <br/>
+                    <input type="text" name="plan_cost" id="plan_cost" class="form-control"><span class="text-danger cost"></span>
                     <label>Description</label>
                     <textarea name="description" id="description" class="form-control"></textarea> <span class="text-danger description"></span>
+                    <label>Status</label>
+                    <div class="status">
+                        <select name="status" class="form-control" type="hidden">
+                            <option value="inactive">Inactive</option>
+                            <option value="active">Active</option>
+                        </select> 
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="plan_id" id="plan_id">
@@ -237,6 +245,7 @@
                     $('#end_date').val(data.end_date);
                     $('#plan_cost').val(data.plan_cost);
                     $('#description').val(data.description);
+                    $("div.status select").val(data.status);
                     $('.modal-title').text("Edit plan");
                     $('#plan_id').val(plan_id);
                     $('#action').val("Edit");

@@ -5,7 +5,7 @@ class Main_model extends CI_Model {
 
 	function can_login($email, $password)
 	{
-		$this->db->select('full_name, email, password');
+		$this->db->select('*');
 		$this->db->where('email', $email);
 		$this->db->where('password', $password);
 
@@ -18,6 +18,12 @@ class Main_model extends CI_Model {
 		{
 			return false;
 		}
+	}
+	public function get_user($email){
+		$this->db->where('email', $email);
+		$query = $this->db->get('admin');
+
+		return $query->row();
 	}
 	function insert_plan($data)
 	{

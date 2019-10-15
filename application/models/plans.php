@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Plans extends CI_Model {
     var $table = "plans";
-    var $select_column = array("id", "plan_name", "image", "start_date", "end_date", "plan_cost", "description");
-    var $order_column = array(null, "plan_name", "image", "start_date", "end_date", "plan_cost", null, null);
+    var $select_column = array("id", "plan_name", "image", "start_date", "end_date", "plan_cost", "description", "status");
+    var $order_column = array(null, "plan_name", "image", "start_date", "end_date", "plan_cost", "description", null, null);
     function make_query(){
         $this->db->select($this->select_column);
         $this->db->from($this->table);
@@ -50,7 +50,7 @@ class Plans extends CI_Model {
     }
     public function get_plan()
     {
-        $result = $this->db->query("select * from plans where status=1")->result_array();
+        $result = $this->db->query("select * from plans where status='active'")->result_array();
         return $result;
     }
     public function get_sliders()
@@ -112,13 +112,10 @@ class Plans extends CI_Model {
     {
         $this->db->where("id", $booked_id);
         $this->db->delete("booked_tours");
-
-        if($this->db->affected_rows() > 0)
-        {
-            return true;
-        }
-        else{
-            return false;
-        }
+    }
+    public function get_all_plan()
+    {
+        $result = $this->db->query("select * from plans")->result_array();
+        return $result;
     }
 }

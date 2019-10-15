@@ -173,10 +173,10 @@
             url:baseDir + 'dashboard/dashboard/delete_booked_plan',
             method:'POST',
             data:{booked_id:booked_id},
-            dataType:'json',
             success: function(data){
-                $('.alert-success').html('Booked plan details deleted successfully!').fadeIn().delay(5000).fadeOut('slow');
+                alert(data);
                 dataTable.ajax.reload();
+                $('.alert-success').html('Booked plan details deleted successfully!').fadeIn().delay(5000).fadeOut('slow');
             }
         });
         }

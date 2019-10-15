@@ -20,7 +20,7 @@
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="fe-bell noti-icon"></i>
-                            <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
+                            <span class="badge badge-danger rounded-circle noti-icon-badge">0</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-lg">
 
@@ -40,9 +40,18 @@
 
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="<?php echo base_url(); ?>assets1/images/users/chalo.jpg" alt="user-image" class="rounded-circle">
+                        <?php
+                            if($user->image==''){
+                        ?>
+                            <img src="<?php echo base_url(); ?>assets1/images/users/user-icon.png" class="rounded-circle" alt="user-image">
+                        <?php } ?>
+                        <?php
+                            if($user->image!=''){
+                        ?>
+                            <img src="<?php echo base_url(); ?>assets1/images/users/<?php echo $user->image?>" class="rounded-circle" alt="user-image">
+                        <?php } ?>
                             <span class="pro-user-name ml-1">
-                                Charles Kiguru <i class="mdi mdi-chevron-down"></i> 
+                            <?php echo $user->username ?> <i class="mdi mdi-chevron-down"></i> 
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -52,7 +61,7 @@
                             </div>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a href="<?php echo base_url(); ?>dashboard/dashboard/profile" class="dropdown-item notify-item">
                                 <i class="fe-user"></i>
                                 <span>My Account</span>
                             </a>

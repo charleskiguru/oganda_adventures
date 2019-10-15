@@ -182,7 +182,7 @@
                     $('#plan_uploaded_image').html(data.image);
                     $('#title').val(data.title);
                     $('#description').val(data.description);
-                    $('.modal-title').text("Edit plan");
+                    $('.modal-title').text("Edit Slider");
                     $('#slider_id').val(slider_id);
                     $('#action').val("Edit");
 

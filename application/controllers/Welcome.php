@@ -11,8 +11,10 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->model('plans');
 		$this->load->model('team');
+		$this->load->model('gallery');
 		$data['plans'] = $this->plans->get_plan();
 		$data['sliders'] = $this->plans->get_sliders();
+		$data['gallery'] = $this->gallery->get_gallery_images();
 		$data['teams'] = $this->team->get_team_homepage();
 
 		$this->load->view('my_page', $data);

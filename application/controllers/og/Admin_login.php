@@ -29,8 +29,7 @@ class Admin_login extends CI_Controller {
 			if ($this->main_model->can_login($email, $password)) 
 			{
 				$session_data = array(
-					'email' => $email,
-					'full_name' => $fullname
+					'email' => $email
 				);
 
 				$this->session->set_userdata($session_data);

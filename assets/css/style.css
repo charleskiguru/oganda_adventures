@@ -193,10 +193,6 @@ hr {
     color: #fff;
 }
 
-.custom-navbar .nav li {
-  
-}    
-
 .custom-navbar .nav li a {
 	display: block;
 	padding: 15px 20px;
@@ -636,9 +632,6 @@ figure.effect-zoe:hover p.icon-links a:first-child {
   transition: all 0.4s ease-in-out;
 }
 
-#plan .plan-button .btn:hover {
-}
-
 /* contact section styles
 /* ========================================== */
 .modal label{
@@ -706,8 +699,8 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 /* ========================================== */
 footer {
   background: #f9f9f9;
-  padding-top: 120px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 5px;
 }
 
 footer h2 {

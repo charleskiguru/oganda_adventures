@@ -5,36 +5,65 @@ class Dashboard extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('main_model');
 		if(! $this->session->userdata('email'))
 			return redirect('og/admin_login');
 	}
 	public function index()
 	{
-		$this->load->view('dashboard/dashboard');
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
+		$this->load->view('dashboard/dashboard', $data);
 	}
 	public function slider()
 	{
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
 		$this->load->model('plans');
 		$data['sliders'] = $this->plans->get_sliders();
 		$this->load->view('dashboard/slider', $data);
 	}
 	public function plans()
 	{
-		$this->load->view('dashboard/plans');
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
+		$this->load->view('dashboard/plans', $data);
 	}
 	public function plans_booked()
 	{
-		$this->load->view("dashboard/booked_plans");
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
+		$this->load->view("dashboard/booked_plans", $data);
 	}
 	public function team()
 	{
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
 		$this->load->model('team');
 		$data['teams']=$this->team->get_team();
 		$this->load->view('dashboard/team', $data);
 	}
 	public function gallery()
 	{
-		$this->load->view('dashboard/gallery');
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
+		$this->load->model('gallery');
+		$data['gallery_images'] = $this->gallery->get_images();
+		$data['gallery_videos'] = $this->gallery->get_videos();
+		$this->load->view('dashboard/gallery', $data);
+	}
+	public function profile()
+	{
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
+		$this->load->view('dashboard/profile', $data);
 	}
 	function fetch_plans(){
 		$this->load->model("plans");
@@ -48,9 +77,16 @@ class Dashboard extends CI_Controller {
 			$sub_array[] = $row->end_date;
 			$sub_array[] = $row->plan_cost;
 			$sub_array[] = $row->description;
+			if($row->status=='active')
+			{
+				$sub_array[] = '<span class="badge badge-success">'.$row->status.'</span>' ;
+			}
+			else{
+				$sub_array[] = '<span class="badge badge-danger">'.$row->status.'</span>' ;
+			}
 
-			$sub_array[] = '<button type="button" name="update" id="'.$row->id.'" class="btn btn-warning btn-xs update">Update</button>';
-			$sub_array[] = '<button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button>';
+			$sub_array[]='<a href="javascript:void(0);" class="action-icon "> <i class="mdi mdi-square-edit-outline update" id="'.$row->id.'"></i></a>';
+            $sub_array[]='<a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete delete" id="'.$row->id.'"></i>';
 			$data[] = $sub_array;
 		}
 		$output = array(
@@ -79,7 +115,8 @@ class Dashboard extends CI_Controller {
 				'start_date'	=>	$this->input->post('start_date'),
 				'end_date'		=>	$this->input->post('end_date'),
 				'plan_cost'		=>	$this->input->post('plan_cost'),
-				'description'	=>	$this->input->post('description')
+				'description'	=>	$this->input->post('description'),
+				'status'		=>	$this->input->post('status')
 			);
 			$this->load->model('main_model');
 			$this->main_model->update_plan($this->input->post("plan_id"), $updated_data);
@@ -93,7 +130,8 @@ class Dashboard extends CI_Controller {
 				'start_date' => $this->input->post('start_date'),
 				'end_date' => $this->input->post('end_date'),
 				'plan_cost' => $this->input->post('plan_cost'),
-				'description' => $this->input->post('description')
+				'description' => $this->input->post('description'),
+				'status'	=>	$this->input->post('status')
 			);
 			$this->load->model('main_model');
 			$this->main_model->insert_plan($insert_data);
@@ -132,6 +170,7 @@ class Dashboard extends CI_Controller {
 			$output['end_date'] 	= $row->end_date;
 			$output['plan_cost'] 	= $row->plan_cost;
 			$output['description'] 	= $row->description;
+			$output['status'] 		= $row->status;
 		}
 		echo json_encode($output);
 	}
@@ -184,8 +223,8 @@ class Dashboard extends CI_Controller {
 			$sub_array[] = $row->total_cost;
 			$sub_array[] = $row->created_at;
 
-			$sub_array[] = '<button type="button" name="update" id="'.$row->id.'" class="btn btn-warning btn-xs update">Update</button>';
-			$sub_array[] = '<button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button>';
+			$sub_array[]='<a href="javascript:void(0);" class="action-icon "> <i class="mdi mdi-square-edit-outline update" id="'.$row->id.'"></i></a>';
+            $sub_array[]='<a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete delete" id="'.$row->id.'"></i>';
 			$data[] = $sub_array;
 		}
 		$output = array(
@@ -357,5 +396,120 @@ class Dashboard extends CI_Controller {
 		$this->load->model('team');
 		$this->team->delete_team($_POST["team_id"]);
 		echo "Member deleted successfully!";
+	}
+	function image_action()
+	{
+		if($this->input->post("image_id")  != ""){
+			$image = '';
+			if($_FILES["image"]["name"] != '')
+			{
+				$image = $this->upload_gallery();
+			}
+			else
+			{
+				$image = $this->input->post("hidden_user_image");
+			}
+			$updated_data = array(
+				'image'			=>	$image,
+				'description'	=>	$this->input->post('description'),
+				'status'		=>  $this->input->post('status')
+			);
+			$this->load->model('gallery');
+			$this->gallery->update_gallery_image($this->input->post("image_id"), $updated_data);
+			echo 'Data Updated';
+		}
+		else
+		{
+			$insert_data = array(
+				'image'     	=> $this->upload_gallery(),
+				'description' 	=> $this->input->post('description'),
+				'date'			=> date('d-m-Y'),
+				'status'		=> $this->input->post('status')
+			);
+	
+			$this->load->model('gallery');
+			$this->gallery->insert_gallery_image($insert_data);
+			echo "Data inserted";
+		}
+	}
+	function fetch_single_image_gallery()
+	{
+		$output = array();
+		$this->load->model('gallery');
+		$data = $this->gallery->fetch_single_image_gallery($_POST["image_id"]);
+
+		foreach ($data as $row) {
+
+			if($row->image != '')
+			{
+				$output['image'] = '<img src="' .base_url().'assets/images/gallery/'.$row->image.'" class="img-thumbnail" width="75"/>
+				<input type="hidden" name="hidden_user_image" value="'.$row->image.'"> ';
+			}
+			else{
+				$output['image'] = '<input type="hidden" name="hidden_user_image" value=" ">';
+			}
+			$output['description'] 		= $row->description;
+			$output['status'] 			= $row->status;
+		}
+		echo json_encode($output);
+	}
+	function upload_gallery()
+	{
+		if(isset($_FILES["image"]))
+		{
+			$extension = explode('.', $_FILES['image']['name']);
+			$new_name = rand() . '.' . $extension[1];
+			$destination = './assets/images/gallery/' . $new_name;
+			move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+			return $new_name;
+		}
+	}
+	function video_action()
+	{
+		if($this->input->post("video_id")  != ""){
+			$updated_data = array(
+				'youtube_link'	=>	$this->input->post('y_link'),
+				'description'	=>	$this->input->post('v_description')
+			);
+			$this->load->model('gallery');
+			$this->gallery->update_gallery_video($this->input->post("video_id"), $updated_data);
+			echo 'Data Updated';
+		}
+		else
+		{
+			$insert_data = array(
+				'youtube_link'  => $this->input->post('y_link'),
+				'description' 	=> $this->input->post('v_description'),
+				'date'			=> date('d-m-Y')
+			);
+	
+			$this->load->model('gallery');
+			$this->gallery->insert_gallery_video($insert_data);
+			echo "Data inserted";
+		}
+	}
+	function fetch_single_video_gallery()
+	{
+		$output = array();
+		$this->load->model('gallery');
+		$data = $this->gallery->fetch_single_video_gallery($_POST["video_id"]);
+
+		foreach ($data as $row) {
+			$output['youtube_link'] 	= $row->youtube_link;
+			$output['description'] 		= $row->description;
+		}
+		echo json_encode($output);
+	}
+	function delete_gallery_image()
+	{
+		$this->load->model('gallery');
+		$this->gallery->delete_gallery_image($_POST["image_id"]);
+		echo "Image deleted successfully!";
+	}
+	function delete_gallery_video()
+	{
+		$this->load->model('gallery');
+		$this->gallery->delete_gallery_video($_POST["video_id"]);
+		echo "Video deleted successfully!";
 	}
 }
