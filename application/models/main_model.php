@@ -58,5 +58,44 @@ class Main_model extends CI_Model {
 	function insert_team($data)
     {
         $this->db->insert('team', $data);
-    }
+	}
+	function update_profile_picture($picture_id, $data)
+	{
+		$this->db->where("id", $picture_id);
+		$this->db->update("admin", $data);
+
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	function update_profile_details($profile_id, $data)
+	{
+		$this->db->where("id", $profile_id);
+		$this->db->update("admin", $data);
+
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	function change_password($user_id, $data)
+	{
+		$this->db->where("id", $user_id);
+		$this->db->update("admin", $data);
+
+		if($this->db->affected_rows() > 0)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }

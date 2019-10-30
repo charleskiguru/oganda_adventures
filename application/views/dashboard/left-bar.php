@@ -11,68 +11,32 @@
             <li class="menu-title">Navigation</li>
 
             <li>
-                <a href="javascript: void(0);">
+                <a href="<?php echo base_url(); ?>dashboard/dashboard">
                     <i class="fe-airplay"></i>
                     <span> Dashboard </span>
-                    <span class="menu-arrow"></span>
                 </a>
-                <ul class="nav-second-level" arial-expanded="false">
-                    <li>
-                        <a href="<?php echo base_url(); ?>dashboard/dashboard/slider">Slider images</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url(); ?>dashboard/dashboard/plans">Trip plans</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url(); ?>dashboard/dashboard/team">Team</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url(); ?>dashboard/dashboard/gallery">Gallery</a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="javascript: void(0);">
                     <i class="fe-pocket"></i>
-                    <span> Apps </span>
+                    <span> Plans </span>
                     <span class="menu-arrow"></span>
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
+                        <a href="<?php echo base_url(); ?>dashboard/dashboard/plans">Trip plans</a>
+                    </li>
+                    <li>
                         <a href="<?php echo base_url(); ?>dashboard/dashboard/plans_booked">Booked Plans</a>
-                    </li>
-                    <li>
-                        <a href="apps-contacts.html">Contacts</a>
-                    </li>
-                    <li>
-                        <a href="apps-projects.html">Projects</a>
-                    </li>
-                    <li>
-                        <a href="apps-tickets.html">Tickets</a>
-                    </li>
-                    <li>
-                        <a href="apps-companies.html">Companies</a>
                     </li>
                 </ul>
             </li>
 
             <li>
-                <a href="javascript: void(0);">
+                <a href="<?php echo base_url(); ?>dashboard/dashboard/team">
                     <i class="fe-users"></i>
-                    <span> CRM </span>
-                    <span class="menu-arrow"></span>
+                    <span> Team </span>
                 </a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li>
-                        <a href="crm-dashboard.html">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="crm-contacts.html">Contacts</a>
-                    </li>
-                    <li>
-                        <a href="crm-customers.html">Customers</a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="javascript: void(0);">
@@ -82,13 +46,10 @@
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="extras-profile.html">Profile</a>
+                        <a href="<?php echo base_url(); ?>dashboard/dashboard/slider">Slider images</a>
                     </li>
                     <li>
-                        <a href="extras-faqs.html">FAQs</a>
-                    </li>
-                    <li>
-                        <a href="extras-gallery.html">Gallery</a>
+                        <a href="<?php echo base_url(); ?>dashboard/dashboard/gallery">Gallery</a>
                     </li>
                 </ul>
             </li>
@@ -102,13 +63,7 @@
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="maps-google.html">Google Maps</a>
-                    </li>
-                    <li>
-                        <a href="maps-vector.html">Vector Maps</a>
-                    </li>
-                    <li>
-                        <a href="maps-mapael.html">Mapael Maps</a>
+                        <a href="#">Google Maps</a>
                     </li>
                 </ul>
             </li>

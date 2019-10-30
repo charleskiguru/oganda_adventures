@@ -65,6 +65,13 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('dashboard/profile', $data);
 	}
+	public function change_password()
+	{
+		$user_email = $this->session->userdata('email');
+		$data['user'] = $this->main_model->get_user($user_email);
+
+		$this->load->view('dashboard/change_password',$data);
+	}
 	function fetch_plans(){
 		$this->load->model("plans");
 		$fetch_data = $this->plans->make_datatables();
@@ -264,7 +271,7 @@ class Dashboard extends CI_Controller {
 		);
 		$this->load->model('booked');
 		$this->booked->update_booked_plan($this->input->post("booked_id"), $updated_data);
-		echo 'Data Updated';
+		echo 'Confirmed payments';
 	}
 	function slider_action()
 	{
@@ -511,5 +518,55 @@ class Dashboard extends CI_Controller {
 		$this->load->model('gallery');
 		$this->gallery->delete_gallery_video($_POST["video_id"]);
 		echo "Video deleted successfully!";
+	}
+	function update_profile_picture()
+	{
+		$image = '';
+			if($_FILES["image"]["name"] != '')
+			{
+				$image = $this->upload_profile();
+			}
+			else
+			{
+				$image = $this->input->post("hidden_user_image");
+			}
+			$updated_data = array(
+				'image'			=>	$image
+			);
+			$this->load->model('main_model');
+			$this->main_model->update_profile_picture($this->input->post("picture_id"), $updated_data);
+			echo 'Data Updated';
+	}
+	function upload_profile()
+	{
+		if(isset($_FILES["image"]))
+		{
+			$extension = explode('.', $_FILES['image']['name']);
+			$new_name = rand() . '.' . $extension[1];
+			$destination = './assets1/images/users/' . $new_name;
+			move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+			return $new_name;
+		}
+	}
+	function update_profile_details()
+	{
+		$updated_data = array(
+			'first_name'	=>	$this->input->post('first_name'),
+			'last_name'		=>	$this->input->post('last_name'),
+			'phone_number'	=>	$this->input->post('phone_number'),
+			'gender'		=>	$this->input->post('gender')
+		);
+		$this->load->model('main_model');
+		$this->main_model->update_profile_details($this->input->post("profile_id"), $updated_data);
+		echo 'Data Updated';
+	}
+	function change_pass()
+	{
+		$updated_data = array(
+			'password'	=>	md5($this->input->post('new_password'))
+		);
+		$this->load->model('main_model');
+		$this->main_model->change_password($this->input->post("user_id"), $updated_data);
+		echo 'Password has been changed.';
 	}
 }

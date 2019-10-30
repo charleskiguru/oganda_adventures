@@ -30,7 +30,7 @@
                                 <div class="text-center w-75 m-auto">
                                     <img src="<?php echo base_url(); ?>assets/images/logo.jpg" alt="" height="30">
                                     <h5 class="text-muted">Enter your email address and password to access admin panel.</h5>
-                                    <?php echo '<label class="text-danger">'.$this->session->flashdata('error'); ?>
+                                    <?php echo '<span class="text-danger">'.$this->session->flashdata('error').'</span>'; ?>
                                 </div>
 
                                 <form method="post" action="<?php echo base_url();?>og/admin_login/admin_login_validation">

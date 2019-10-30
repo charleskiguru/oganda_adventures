@@ -154,7 +154,7 @@
 					<i class="icon-bike medium-icon"></i>
 						<h3>WEB MARKETING</h3>
 						<hr>
-						<p>Incase you need a personal website and blog just contact us.</p>
+						<p>If you need a personal website and blog just contact us.</p>
 				</div>
 
 				<div class="item col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
@@ -256,21 +256,21 @@
 
 			<div class="col-md-3 col-sm-3 col-xs-6">
 				<div class="about-fact border-right">
-					<span>32</span>
+					<span>12</span>
 					<h4>TOURS</h4>
 				</div>
 			</div>
 
 			<div class="col-md-3 col-sm-3 col-xs-6">
 				<div class="about-fact border-right">
-					<span>16</span>
+					<span>6</span>
 					<h4>AWARDS</h4>
 				</div>
 			</div>
 
 			<div class="col-md-3 col-sm-3 col-xs-6">
 				<div class="about-fact border-right">
-					<span>128</span>
+					<span>18</span>
 					<h4>TRIPS</h4>
 				</div>
 			</div>
@@ -651,7 +651,26 @@
     </div>
   </div>
 </div>
-
+<div id="paymentModal" data-backdrop="false" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+		<h4 class="modal-title">Booking successfull.</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+			<img src="<?php echo base_url(); ?>assets/images/payments/payment.png" class="img-responsive" height="500px"> 
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Portfolio section
 ================================================== -->
@@ -949,7 +968,8 @@
 					success: function(response){
 						if(response.success){
 							$('#bookForm')[0].reset();
-							$('.alert-success').html('Booking Successful!. Please confirm the payments, Thankyou.').fadeIn().delay(4000).fadeOut('slow');
+							$('#bookModal').modal('hide');
+							// $('.alert-success').html('Booking Successful!. Please confirm the payments, Thankyou.').fadeIn().delay(4000).fadeOut('slow');
 						}
 						else{
 							alert('error');
@@ -960,6 +980,11 @@
 					}
 				});
 			}
+		});
+		$('#bookModal').on('hidden.bs.modal', function () {
+  			// Load up a new modal...
+  			$('#paymentModal').modal('show');
+			  //alert('hello');
 		});
 		$(document).on('click', '#addButton', function(){
             $('#bookForm' ).each(function(){
@@ -1011,7 +1036,7 @@
 			{
 				$.ajax({
 					type:'ajax',
-					url:baseDir + 'welcome/contact',
+					url:baseDir + 'contact/send_mail',
 					method:'POST',
 					data:data,
 					async:false,

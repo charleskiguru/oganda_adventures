@@ -15,7 +15,7 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Plans</a></li>
                                             <li class="breadcrumb-item active">Booked plans</li>
                                         </ol>
                                     </div>
@@ -129,7 +129,6 @@
                             alert(data);
                             $('#booked_form')[0].reset();
                             $('#bookedModal').modal('hide');
-                            dataTable.ajax.reload();
                             $('.alert-success').html('Payment details updated successfully!').fadeIn().delay(5000).fadeOut('slow');
                         }
                         else{

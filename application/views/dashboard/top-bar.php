@@ -67,15 +67,11 @@
                             </a>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-settings"></i>
-                                <span>Settings</span>
-                            </a>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a href="<?php echo base_url(); ?>dashboard/dashboard/change_password" class="dropdown-item notify-item">
                                 <i class="fe-lock"></i>
-                                <span>Lock Screen</span>
+                                <span>Change Password</span>
                             </a>
 
                             <div class="dropdown-divider"></div>

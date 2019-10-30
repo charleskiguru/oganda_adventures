@@ -2,53 +2,56 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Contact extends CI_Controller {
-    public function __construct(){
+    function __construct(){
         parent::__construct();
-        $this->load->library('session');
-        $this->load->helper('form');
+        $this->load->library('phpmailer_lib');
     }
-    public function index()
+    function send_mail()
     {
-        $this->load->helper('form');
-        // $data = $this->input->post();
+            $response = false;
+            $mail = $this->phpmailer_lib->load();
+            $name = $this->input->post('contact_name');
+            $subject = $this->input->post('contact_subject');
+            $body = $this->input->post('contact_message');
+            $emailfrom = $this->input->post('contact_email');
+            $email = 'info@ogandaadventures.co.ke';
 
-        // $this->load->library('email');
-        // $config = array();
-        // $config['protocol'] = 'smtp';
-        // $config['smtp_host'] = 'mail.ogandaadventures.co.ke';
-        // $config['smtp_user'] = 'info@ogandaadventures.co.ke';
-        // $config['smtp_pass'] = '{iK_B&o{_8x9';
-        // $config['smtp_port'] = '110';
-        // $this->email-initialize($config);
 
-        // $this->email->set_newline("\r\n");
-        
-        // $this->email->from($data['email']);
-        // $this->email->to('info@ogandaadventures.co.ke');
-        // $this->email->subject($data['subject']);
-        // $this->email->message($data['message']);
+            $mail->CharSet = 'UTF-8';
+            $mail->SetFrom($emailfrom, $name);
 
-        // if($this->email->send()){
-        //     $this->session->set_flashdata('success', 'Email sent successfully');
-        // }
-    }
-    public function send_mail()
-    {
-        $from_email="charleskiguru14@gmail.com"
-        $to_email="info@ogandaadventures.co.ke";
+            //You could either add recepient name or just the email address.
+            $mail->AddAddress($email,"Oganda Adventures");
+            $mail->AddAddress($email);
 
-        $this->load->library('email');
-        $this->email->from($from_email, 'Charles kiguru');
-        $this->email->to($to_email);
-        $this->email->subject('Email test');
-        $this->email->message('Testing email class');
+            //Address to which recipient will reply
+            $mail->addReplyTo($emailfrom,"Reply");
+            // $mail->addCC("cc@example.com");
+            // $mail->addBCC("bcc@example.com");
 
-        if(this->email->send())
-        {
-            echo "Email delivered successfully";
-        }
-        else{
-            echo "Email not sent";
-        }
+            //You could send the body as an HTML or a plain text
+            $mail->IsHTML(true);
+
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+
+            //Send email via SMTP
+            //$mail->IsSMTP();
+            $mail->SMTPAuth   = true; 
+            $mail->SMTPSecure = "ssl";  //tls
+            $mail->Host       = "mail.ogandaadventures.co.ke";
+            $mail->Port       = 26; //you could use port 25, 587, 465 for googlemail
+            $mail->Username   = "info@ogandaadventures.co.ke";
+            $mail->Password   = "{iK_B&o{_8x9";
+
+            if(!$mail->send()){
+                $msg['success'] = false;
+                // echo 'Message could not be sent.';
+                // echo 'Mail Error:'.$mail->ErrorInfo;
+            }
+            else{
+                $msg['success'] = true;
+            }
+            echo json_encode($msg);
     }
 }
